@@ -1,32 +1,5 @@
-// var container = document.getElementById("container");
-// var registerBtn = document.getElementById("register");
-// var loginBtn = document.getElementById("login");
-
-// registerBtn.addEventListener("click", () => {
-//   container.classList.add("active"); ///قاىمه الكلاسات  اللي موجوده ف العنصر دا
-// });
-
-// loginBtn.addEventListener("click", () => {
-//   container.classList.remove("active");
-// });
-// document.getElementById("ch").addEventListener("change", function () {
-//   var pas = document.getElementById("pas");
-
-//   if (this.checked) {
-//     pas.type = "text";
-//   } else {
-//     pas.type = "password";
-//   }
-// });
-// document.getElementById("che").addEventListener("change", function () {
-//   var sh = document.getElementById("shpas");
-//   if (this.checked) {
-//     sh.type = "text";
-//   } else {
-//     sh.type = "password";
-//   }
-// });
 /* ================= SHOW / HIDE PASSWORD ================= */
+
 function togglePassword(inputId, icon) {
   const input = document.getElementById(inputId);
   if (!input) return;
@@ -44,24 +17,24 @@ function togglePassword(inputId, icon) {
 
 /* ================= MAIN CODE ================= */
 document.addEventListener("DOMContentLoaded", function () {
-  // CONTAINER & TOGGLE BUTTONS
+  /* ===== ELEMENTS ===== */
   const container = document.getElementById("container");
   const registerBtn = document.getElementById("register");
   const loginBtn = document.getElementById("login");
 
-  // SIGN UP elements
+  // Sign Up
   const suUsername = document.getElementById("suUsername");
   const suEmail = document.getElementById("suEmail");
   const suPassword = document.getElementById("suPassword");
   const signUpForm = document.getElementById("signUpForm");
 
-  // SIGN IN elements
+  // Sign In
   const siUsername = document.getElementById("siUsername");
   const siPassword = document.getElementById("siPassword");
   const rememberMe = document.getElementById("rememberMe");
   const signInForm = document.getElementById("signInForm");
 
-  // ===================== TOGGLE PANELS =====================
+  /* ===== TOGGLE PANELS ===== */
   if (registerBtn) {
     registerBtn.addEventListener("click", () => {
       container.classList.add("active");
@@ -74,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // ===================== HELPERS =====================
+  /* ===== HELPERS ===== */
   function showError(id, msg) {
     const el = document.getElementById(id);
     if (el) {
@@ -92,10 +65,21 @@ document.addEventListener("DOMContentLoaded", function () {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
 
-  // ===================== LOCAL STORAGE =====================
+  /* ===== LOCAL STORAGE ===== */
   let users = JSON.parse(localStorage.getItem("users")) || [];
 
-  // Load saved username/password if rememberMe was checked
+  // Create default admin (once)
+  if (!users.some((u) => u.role === "admin")) {
+    users.push({
+      username: "admin",
+      email: "admin@gmail.com",
+      password: "admin123",
+      role: "admin",
+    });
+    localStorage.setItem("users", JSON.stringify(users));
+  }
+
+  // Load remember me data
   if (localStorage.getItem("rememberMe") === "true") {
     if (siUsername)
       siUsername.value = localStorage.getItem("savedUsername") || "";
@@ -104,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (rememberMe) rememberMe.checked = true;
   }
 
-  // ===================== SIGN UP =====================
+  /* ===================== SIGN UP ===================== */
   if (signUpForm && suUsername && suEmail && suPassword) {
     signUpForm.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -115,34 +99,48 @@ document.addEventListener("DOMContentLoaded", function () {
 
       let valid = true;
 
+      // Username validation
       if (username.length < 3) {
         showError("suUsernameError", "Username must be at least 3 characters");
         valid = false;
       } else hideError("suUsernameError");
 
+      // Email validation
       if (!isValidEmail(email)) {
         showError("suEmailError", "Invalid email format");
         valid = false;
       } else hideError("suEmailError");
 
+      // Password validation
       if (password.length < 6) {
         showError("suPasswordError", "Password must be at least 6 characters");
         valid = false;
       } else hideError("suPasswordError");
 
+      // Check duplicate username
+      if (users.some((u) => u.username === username)) {
+        alert("Username already exists ❌");
+        return;
+      }
+
       if (!valid) return;
 
-      users.push({ username, email, password, role: "customer" });
-      localStorage.setItem("users", JSON.stringify(users));
+      users.push({
+        username,
+        email,
+        password,
+        role: "customer",
+      });
 
+      localStorage.setItem("users", JSON.stringify(users));
       alert("Registration successful ✅");
 
       this.reset();
-      if (container) container.classList.remove("active");
+      container.classList.remove("active");
     });
   }
 
-  // ===================== SIGN IN =====================
+  /* ===================== SIGN IN ===================== */
   if (signInForm && siUsername && siPassword) {
     signInForm.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -160,20 +158,21 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       } else hideError("siPasswordError");
 
-      
+      // Find user by username only
       const user = users.find((u) => u.username === username);
 
-      
       if (!user) {
         alert("This account does not exist. Please create an account first.");
         return;
       }
 
-      
       if (user.password !== password) {
         alert("Incorrect password. Please try again.");
         return;
       }
+
+      // Save current user
+      localStorage.setItem("currentUser", JSON.stringify(user));
 
       // Remember me
       if (rememberMe && rememberMe.checked) {
@@ -186,8 +185,20 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("rememberMe", "false");
       }
 
-      alert("Login successful 🎉");
+      // Role check
+      if (user.role === "admin") {
+        alert("Welcome Admin 👑");
+      } else {
+        alert("Login successful 🎉");
+      }
+
       this.reset();
     });
   }
 });
+
+/* ================= LOGOUT ================= */
+function logout() {
+  localStorage.removeItem("currentUser");
+  alert("Logged out successfully 👋");
+}

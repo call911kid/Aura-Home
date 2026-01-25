@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap");
-
 * {
   margin: 0;
   padding: 0;
@@ -298,4 +296,25 @@ h1 {
 
 .toggle-panel p {
   color: #ffffff;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.remember-me input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+  padding: 0;
+  accent-color: #025048;
+}
+
+.remember-me label {
+  font-size: 13px;
+  color: #424b4a;
+  cursor: pointer;
 }
