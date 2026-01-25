@@ -10,14 +10,21 @@
     font-weight: 400;
 }
 
-body {
+::selection {
+    background: #025048;
     color: white;
+}
+
+.navbar::selection{
+    background: white;
+    color: #025048;
 }
 
 
 .navbar {
     background-color: #025048;
     padding: 2rem;
+    color: white;
 
 
 }
@@ -25,8 +32,11 @@ body {
 .navbar-brand {
     font-family: 'Playfair-Display';
     color: white;
-    font-size: 1.5rem;
+    font-size: 2rem;
     margin-left: 4.5rem;
+}
+.navbar-brand:focus{
+    color: white;
 }
 
 
@@ -37,18 +47,10 @@ body {
     box-shadow: none !important;
 }
 
-@media (max-width: 991px) {
-    .navbar-collapse {
-        text-align: right;
-    }
 
-    .navbar-nav {
-        margin-left: auto;
-        align-items: flex-end;
-    }
+.navbar-collapse {
+    text-align: right;
 }
-
-
 
 
 
@@ -87,7 +89,7 @@ body {
     background-color: #025048;
     display: flex;
     align-items: center;
-    max-height: 100vh;
+    color: white;
 
 }
 
@@ -180,4 +182,66 @@ body {
 
 .button-x:active {
     transform: scale(0.97);
+}
+
+
+
+.about {
+    color: #025048;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    border: none;
+
+}
+
+.card-img-bottom {
+    border-radius: 16px;
+
+}
+
+
+
+.usp-bar {
+    background: #f5f7fa;
+    padding: auto;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Work-Sans';
+}
+
+.usp-icon {
+    color: #012E29;
+    
+    
+    
+}
+
+.usp-title {
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: #012E29;
+}
+
+.usp-text {
+    font-size: .9rem;
+    color: #6c757d;
+}
+.usp-item{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    
+
+}
+.usp-item i {
+    color: #012E29;
+    display: inline;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 0;
 }
