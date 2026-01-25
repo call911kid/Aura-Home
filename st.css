@@ -1,0 +1,301 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Work Sans", sans-serif;
+}
+
+body {
+  background-image:
+    linear-gradient(rgba(0, 0, 50, 0.8), rgba(0, 0, 50, 0.8)),
+    url(ChatGPT\ Image\ Jan\ 24\,\ 2026\,\ 11_06_42\ PM.png);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+}
+
+/* ================= CONTAINER ================= */
+.container {
+  background-color: #fff;
+  border-radius: 30px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+  position: relative;
+  overflow: hidden;
+  width: 768px;
+  max-width: 100%;
+  min-height: 480px;
+}
+
+.container p {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.3px;
+  margin: 20px 0;
+  color: #424b4a;
+}
+
+.container a {
+  color: #424b4a;
+  font-size: 13px;
+  text-decoration: none;
+  margin: 15px 0 10px;
+}
+
+.container button {
+  background-color: #025048;
+  color: #fff;
+  font-size: 12px;
+  padding: 10px 45px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.container button:hover {
+  background-color: #033f3d;
+}
+
+.container button.hidden {
+  background-color: transparent;
+  border-color: #fff;
+  color: #fff;
+}
+
+/* ================= FORM ================= */
+.container form {
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 40px;
+  height: 100%;
+}
+
+.container input {
+  background-color: #f2f5f4;
+  border: none;
+  margin: 8px 0;
+  padding: 10px 15px;
+  font-size: 13px;
+  border-radius: 8px;
+  width: 100%;
+  outline: none;
+  text-align: center;
+  color: #424b4a;
+}
+
+/* ================= HEADINGS ================= */
+h1 {
+  font-family: "Playfair Display", serif;
+  color: #025048;
+}
+
+/* ================= FORM CONTAINERS ================= */
+.form-container {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all 0.6s ease-in-out;
+}
+
+.sign-in {
+  left: 0;
+  width: 50%;
+  z-index: 2;
+}
+
+.container.active .sign-in {
+  transform: translateX(100%);
+}
+
+.sign-up {
+  left: 0;
+  width: 50%;
+  opacity: 0;
+  z-index: 1;
+}
+
+.container.active .sign-up {
+  transform: translateX(100%);
+  opacity: 1;
+  z-index: 5;
+  animation: move 0.6s;
+}
+
+@keyframes move {
+  0%,
+  49.99% {
+    opacity: 0;
+    z-index: 1;
+  }
+  50%,
+  100% {
+    opacity: 1;
+    z-index: 5;
+  }
+}
+
+/* ================= TOGGLE ================= */
+.toggle-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition: all 0.6s ease-in-out;
+  border-radius: 150px 0 0 100px;
+  z-index: 1000;
+}
+
+.container.active .toggle-container {
+  transform: translateX(-100%);
+  border-radius: 0 150px 100px 0;
+}
+
+.toggle {
+  background-color: #025048;
+  color: #fff;
+  position: relative;
+  left: -100%;
+  height: 100%;
+  width: 200%;
+  transform: translateX(0);
+  transition: all 0.6s ease-in-out;
+}
+
+.container.active .toggle {
+  transform: translateX(50%);
+}
+
+.toggle-panel {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 30px;
+  text-align: center;
+  top: 0;
+  transition: all 0.6s ease-in-out;
+}
+
+.toggle-panel h1 {
+  color: #fff;
+}
+
+.toggle-left {
+  transform: translateX(-200%);
+}
+
+.container.active .toggle-left {
+  transform: translateX(0);
+}
+
+.toggle-right {
+  right: 0;
+}
+
+.container.active .toggle-right {
+  transform: translateX(200%);
+}
+
+/* ================= ICONS ================= */
+.icons i {
+  position: relative;
+  top: 35px;
+  margin-left: 5px;
+  color: #025048;
+}
+
+/* ================= PASSWORD ================= */
+.password-box {
+  position: relative;
+}
+
+.password-box input {
+  padding-right: 35px;
+}
+
+.password-box .toggle-pass {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #025048;
+}
+
+/* ================= ERRORS ================= */
+.error {
+  color: red;
+  font-size: 12px;
+  margin: 4px 0 10px;
+  display: none;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+  .container {
+    width: 95%;
+    min-height: 500px;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    width: 100%;
+    min-height: 520px;
+    transform: scale(0.95);
+  }
+
+  body {
+    padding: 20px;
+  }
+
+  .container form {
+    padding: 0 25px;
+  }
+
+  .container input {
+    font-size: 12px;
+    padding: 9px 12px;
+  }
+
+  .container button {
+    padding: 9px 35px;
+    font-size: 11px;
+  }
+
+  .container p {
+    font-size: 12px;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  .icons i {
+    top: 32px;
+    left: 10px; /* غيريها حسب مكان الأيقونة */
+    transform: translateY(-50%);
+  }
+}
+
+.toggle-panel p {
+  color: #ffffff;
+}

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="st.css" />
+    <title>Login & Register</title>
+  </head>
+
+  <body>
+    <div class="container" id="container">
+      <!-- SIGN UP -->
+      <div class="form-container sign-up">
+        <form id="signUpForm">
+          <h1>Create Account</h1>
+
+          <!-- Username -->
+          <div class="icons">
+            <i class="fa-solid fa-user"></i>
+            <input
+              type="text"
+              id="suUsername"
+              placeholder="UserName"
+              required
+            />
+          </div>
+          <span id="suUsernameError" class="error"></span>
+
+          <!-- Email -->
+          <div class="icons">
+            <i class="fa-solid fa-envelope"></i>
+            <input type="email" id="suEmail" placeholder="Email" required />
+          </div>
+          <span id="suEmailError" class="error"></span>
+
+          <!-- Password -->
+          <div class="icons password-box">
+            <i class="fa-solid fa-lock"></i>
+            <input
+              type="password"
+              id="suPassword"
+              placeholder="Password"
+              required
+            />
+            <i
+              class="fa-solid fa-eye toggle-pass"
+              onclick="togglePassword('suPassword', this)"
+            ></i>
+          </div>
+          <span id="suPasswordError" class="error"></span>
+
+          <button type="submit">Sign Up</button>
+        </form>
+      </div>
+
+      <!-- SIGN IN -->
+      <div class="form-container sign-in">
+        <form id="signInForm">
+          <h1>Sign In</h1>
+
+          <!-- Username -->
+          <div class="icons">
+            <i class="fa-solid fa-user"></i>
+            <input
+              type="text"
+              id="siUsername"
+              placeholder="UserName"
+              required
+            />
+          </div>
+          <span id="siUsernameError" class="error"></span>
+
+          <!-- Password -->
+          <div class="icons password-box">
+            <i class="fa-solid fa-lock"></i>
+            <input
+              type="password"
+              id="siPassword"
+              class="text-box"
+              placeholder="Password"
+              required
+            />
+            <i
+              class="fa-solid fa-eye toggle-pass"
+              onclick="togglePassword('siPassword', this)"
+            ></i>
+          </div>
+          <span id="siPasswordError" class="error"></span>
+
+         
+
+          <a href="#">Forget Your Password?</a>
+          <button type="submit">Sign In</button>
+        </form>
+      </div>
+
+      <!-- TOGGLE PANELS -->
+      <div class="toggle-container">
+        <div class="toggle">
+          <div class="toggle-panel toggle-left">
+            <h1>Welcome Back!</h1>
+            <p>Enter your personal details to use all of site features</p>
+            <button class="hidden" id="login">Sign In</button>
+          </div>
+          <div class="toggle-panel toggle-right">
+            <h1>Welcome, Friend!</h1>
+            <p>Enter your personal details to use all of site features</p>
+            <button class="hidden" id="register">Sign Up</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <!-- <script>
+      // Toggle eye icon function
+      function togglePassword(inputId, icon) {
+        const input = document.getElementById(inputId);
+        if (input.type === "password") {
+          input.type = "text";
+          icon.classList.remove("fa-eye");
+          icon.classList.add("fa-eye-slash");
+        } else {
+          input.type = "password";
+          icon.classList.remove("fa-eye-slash");
+          icon.classList.add("fa-eye");
+        }
+      }
+    </script> -->
+  </body>
+</html>
