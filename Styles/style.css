@@ -1,0 +1,139 @@
+@font-face {
+    font-family: 'Work-Sans';
+    src: url('../Resources/Fonts/WorkSans-Regular.ttf') format('truetype');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'Playfair-Display';
+    src: url('../Resources/Fonts/PlayfairDisplay-Regular.ttf') format('truetype');
+    font-weight: 400;
+}
+
+body {
+    color: white;
+}
+
+
+.navbar {
+    background-color: #025048;
+    padding: 2rem;
+
+
+}
+
+.navbar-brand {
+    font-family: 'Playfair-Display';
+    color: white;
+    font-size: 1.5rem;
+    margin-left: 3.5rem;
+}
+
+.navbar-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.nav-link {
+    text-transform: uppercase;
+
+    color: white;
+}
+
+
+.hero {
+
+    background-color: #025048;
+    display: flex;
+    align-items: center;
+    padding: 5rem;
+    max-height: 100vh;
+
+}
+
+.hero-subtitle {
+    font-family: 'Work-Sans';
+    font-size: 1.5rem;
+
+}
+
+.hero-title {
+    font-family: 'Playfair-Display', serif;
+    font-size: 55px;
+
+}
+
+.hero-subtitle2 {
+    font-family: 'Playfair-Display', serif;
+    font-size: 25px;
+}
+
+.hero-image-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+
+.hero-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+
+.price {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.price-currency {
+    font-size: 0.85rem;
+    margin-top: 4px;
+}
+
+.price-main {
+    font-weight: 700;
+    font-size: 3rem;
+}
+
+.price-decimal {
+    font-size: 0.9rem;
+    margin-top: 4px;
+}
+
+
+.button-x {
+    padding: 15px 30px;
+    border: solid 1px;
+    border-color: white;
+    text-decoration: none;
+    font: 'Work-Sans';
+    display: flex;
+    width: 10rem;
+    height: 3rem;
+    text-align: center;
+    cursor: pointer;
+    font-family: 'Work-Sans', sans-serif;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    color: white;
+
+
+
+}
+
+.button-x:hover {
+    background-color: white;
+    color: #025048;
+    font-weight: 550;
+}
