@@ -1,0 +1,183 @@
+@font-face {
+    font-family: 'Work-Sans';
+    src: url('../Resources/Fonts/WorkSans-Regular.ttf') format('truetype');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'Playfair-Display';
+    src: url('../Resources/Fonts/PlayfairDisplay-Regular.ttf') format('truetype');
+    font-weight: 400;
+}
+
+body {
+    color: white;
+}
+
+
+.navbar {
+    background-color: #025048;
+    padding: 2rem;
+
+
+}
+
+.navbar-brand {
+    font-family: 'Playfair-Display';
+    color: white;
+    font-size: 1.5rem;
+    margin-left: 4.5rem;
+}
+
+
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+@media (max-width: 991px) {
+    .navbar-collapse {
+        text-align: right;
+    }
+
+    .navbar-nav {
+        margin-left: auto;
+        align-items: flex-end;
+    }
+}
+
+
+
+
+
+.navbar-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.nav-link {
+    text-transform: uppercase;
+    color: white;
+    transition: all 0.4s;
+}
+
+.nav-link:hover {
+    letter-spacing: 4px;
+    font-weight: 600;
+    color: #4F6A63
+}
+
+.navbar-brand:hover {
+    color: white;
+}
+
+
+
+
+.hero {
+
+    background-color: #025048;
+    display: flex;
+    align-items: center;
+    max-height: 100vh;
+
+}
+
+.hero-subtitle {
+    font-family: 'Work-Sans';
+    font-size: 1.5rem;
+
+}
+
+.hero-title {
+    font-family: 'Playfair-Display', serif;
+    font-size: 4rem;
+
+}
+
+.hero-subtitle2 {
+    font-family: 'Playfair-Display', serif;
+    font-size: 25px;
+}
+
+.hero-image-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+
+.hero-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+
+.price {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.price-currency {
+    font-size: 0.85rem;
+    margin-top: 4px;
+}
+
+.price-main {
+    font-weight: 700;
+    font-size: 3rem;
+}
+
+.price-decimal {
+    font-size: 0.9rem;
+    margin-top: 4px;
+}
+
+
+.button-x {
+    position: relative;
+    color: white;
+    background: transparent;
+    border: 1px solid white;
+    padding: 10px 24px;
+    overflow: hidden;
+    transition: color 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 1;
+    text-decoration: none;
+}
+
+.button-x:before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: white;
+    transition: height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: -1;
+}
+
+.button-x:hover {
+    color: #025048;
+
+}
+
+.button-x:hover:before {
+    height: 100%;
+}
+
+.button-x:active {
+    transform: scale(0.97);
+}
