@@ -1,0 +1,299 @@
+@font-face {
+  font-family: "workSans";
+  src: url("../Resources/Fonts/WorkSans-VariableFont_wght.ttf");
+  
+  
+}
+@font-face {
+  font-family: "PlayFair";
+  src: url("../Resources/Fonts/PlayfairDisplay-VariableFont_wght.ttf");
+}
+
+
+
+
+:root {
+    --primary-brown: #025048; 
+    --light-bg: #F8F8F8;     
+    --text-gray: #8E8E93;     
+}
+
+body {
+    background-color: var(--light-bg);
+    /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+    font-family: "workSans";
+    color: var(--primary-brown);
+}
+
+
+
+
+.custom-nav .nav-link {
+    color: var(--primary-brown);
+    margin: 0 15px;
+    font-weight: 500;
+}
+
+
+
+
+.main-title {
+    /* font-family: 'Georgia', serif; لتحقيق شكل الخط الكلاسيكي */
+    /* font-style: italic; */
+    font-size: 2.5rem;
+    font-family: "PlayFair";
+}
+
+.subtitle {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+}
+
+
+.custom-card {
+    border: none;
+    border-radius: 0;
+    background: white;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+}
+
+.custom-card:hover {
+    transform: translateY(-5px);
+}
+
+/* .img-wrapper {
+    padding: 15px; 
+} */
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+    /* border-radius: 4px; */
+}
+
+
+.custom-card.shadow-sm {
+    transition: all 0.3s ease-in-out; 
+    cursor: pointer;
+}
+
+
+.custom-card.shadow-sm:hover {
+  
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    transform: translateY(-5px); 
+}
+
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 1.4rem;
+    font-weight: 400;
+}
+
+.price {
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.old-price {
+    text-decoration: line-through;
+    color: #ccc;
+    font-weight: normal;
+    margin-left: 5px;
+}
+
+.card-text {
+    font-size: 0.8rem;
+    color: var(--text-gray);
+    margin-bottom: 20px;
+}
+
+
+.btn-dark-brown {
+    background-color: var(--primary-brown);
+    color: white;
+    border-radius: 50px;
+    padding: 8px 25px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.btn-outline-brown {
+    border: 1px solid #ddd;
+    color: var(--primary-brown);
+    border-radius: 50px;
+    padding: 5px 20px;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.btn-outline-brown:hover {
+    background-color: var(--primary-brown);
+    color: white;
+}
+
+
+.collection-box {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    height: 100%;
+}
+
+.collection-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.collection-box:hover img {
+    transform: scale(1.05);
+}
+
+.collection-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 40px;
+    background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+    width: 100%;
+    color: white;
+}
+
+.collection-overlay h3 {
+    font-family: "PlayFair";
+    
+}
+
+.main-collection {
+    height: 500px;
+}
+
+.sub-collection {
+    height: 238px;
+}
+
+
+.feature-item i {
+    font-size: 2rem;
+    color: var(--primary-brown);
+    margin-bottom: 20px;
+}
+
+.feature-item h5 {
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.feature-item p {
+    color: var(--text-gray);
+    font-size: 0.85rem;
+}
+
+
+footer {
+    border-top: 1px solid #eee;
+    background: #F8F8F8;
+}
+
+.footer-logo {
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+}
+
+.footer-logo span {
+    font-weight: 300;
+}
+
+.social-links a {
+    color: var(--primary-brown);
+    margin: 0 15px;
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+
+
+.sidebar-filters {
+    padding-right: 30px;
+    border-right: 2px solid #e5e5e5;
+}
+
+
+.sticky-sidebar {
+    position: sticky;
+    top: 20px; 
+    height: calc(100vh - 40px);
+    overflow-y: auto;
+}
+
+
+.custom-range-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    background: #000;
+    border-radius: 5px;
+    outline: none;
+}
+
+.custom-range-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    background: #fff;
+    border: 2px solid #000;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
+.btn-outline-custom {
+    border: 1px solid #e9ecef;
+    color: #444;
+    font-size: 13px;
+    padding: 8px 4px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    background: #fff;
+}
+
+.btn-outline-custom:hover {
+    background-color: var(--primary-brown);
+    color: #fff;
+    border-color: var(--primary-brown);
+}
+
+.text-light-gray {
+    color: #f1f1f1;
+    opacity: 0.8;
+}
+
+.brand-item .form-check-input:checked {
+    background-color: #000;
+    border-color: #000;
+}
+
+.brand-item .form-check-label {
+    font-size: 14px;
+    color: #333;
+}
+
+.brand-item .badge {
+    font-size: 11px;
+    color: #666 !important;
+    background-color: #f8f9fa !important;
+}
+
+.sticky-sidebar::-webkit-scrollbar {
+    width: 0px;
+}
