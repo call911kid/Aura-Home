@@ -17,7 +17,7 @@ export async function loadProducts() {
 
   return querySnapshot;
 }
-//loadProducts();
+loadProducts();
 
 export async function getProductById(productId) {
   try {

@@ -124,12 +124,12 @@
 }
 
 
-.price {
+/* .price {
     display: flex;
     justify-content: center;
     align-items: flex-start;
     gap: 4px;
-}
+} */
 
 .price-currency {
     font-size: 0.85rem;
