@@ -187,9 +187,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Role check
       if (user.role === "admin") {
-        alert("Welcome Admin 👑");
+        alert("Welcome Admin ");
       } else {
-        alert("Login successful 🎉");
+        alert("Login successful ");
       }
 
       this.reset();
@@ -197,8 +197,5 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-/* ================= LOGOUT ================= */
-function logout() {
-  localStorage.removeItem("currentUser");
-  alert("Logged out successfully 👋");
-}
+
+

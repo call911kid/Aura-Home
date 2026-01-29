@@ -35,7 +35,6 @@ body {
   line-height: 20px;
   letter-spacing: 0.3px;
   margin: 20px 0;
-  color: #424b4a;
 }
 
 .container a {
@@ -92,6 +91,10 @@ body {
   outline: none;
   text-align: center;
   color: #424b4a;
+  letter-spacing: 0.3px;
+  font-size: 20px;
+  line-height: 20px;
+  font-family: "Playfair Display", serif;
 }
 
 /* ================= HEADINGS ================= */
@@ -215,9 +218,10 @@ h1 {
 /* ================= ICONS ================= */
 .icons i {
   position: relative;
-  top: 35px;
+  top: 40px;
   margin-left: 5px;
   color: #025048;
+  justify-content: center;
 }
 
 /* ================= PASSWORD ================= */
@@ -286,18 +290,24 @@ h1 {
   h1 {
     font-size: 20px;
   }
-
+  /* 
   .icons i {
     top: 32px;
     left: 10px; /* غيريها حسب مكان الأيقونة */
-    transform: translateY(-50%);
-  }
+  /*transform: translateY(-50%);
+    position: relative;
+    top: 40px;
+    margin-left: 5px;
+    color: #025048;
+    justify-content: center;
+  }*/
 }
-
+#x {
+  left: 285px;
+}
 .toggle-panel p {
   color: #ffffff;
 }
-
 .remember-me {
   display: flex;
   align-items: center;
@@ -305,16 +315,38 @@ h1 {
   margin: 10px 0;
   font-size: 14px;
 }
-
 .remember-me input[type="checkbox"] {
   width: auto;
   margin: 0;
   padding: 0;
   accent-color: #025048;
 }
-
 .remember-me label {
   font-size: 13px;
   color: #424b4a;
   cursor: pointer;
+}
+
+.password-box {
+  position: relative;
+  width: 100%;
+}
+
+.password-box input {
+  width: 100%;
+  padding-right: 45px;
+  height: 44px;
+}
+
+.password-box .toggle-pass {
+  position: absolute;
+  right: 12px;
+  top: 50px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #025048;
+  font-size: 16px;
 }
