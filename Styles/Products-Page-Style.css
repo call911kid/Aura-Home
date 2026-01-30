@@ -38,7 +38,7 @@ body {
 
 
 .main-title {
-    /* font-family: 'Georgia', serif; لتحقيق شكل الخط الكلاسيكي */
+    /* font-family: 'Georgia', serif;
     /* font-style: italic; */
     font-size: 2.5rem;
     font-family: "PlayFair";
@@ -56,10 +56,34 @@ body {
     background: white;
     transition: transform 0.3s ease;
     box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    
 }
 
+
+.custom-card .card-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.custom-card .btn-outline-brown {
+  margin-top: auto; 
+  align-self: flex-start;
+}
 .custom-card:hover {
     transform: translateY(-5px);
+}
+
+
+.img-wrapper {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* .img-wrapper {
@@ -86,8 +110,11 @@ body {
 }
 
 
+
+
 .card-body {
     padding: 20px;
+    
 }
 
 .card-title {
@@ -98,6 +125,44 @@ body {
 .price {
     font-size: 0.85rem;
     font-weight: bold;
+}
+
+.img-wrapper {
+  position: relative;
+  
+}
+
+.wishlist-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  color: #333;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+
+.wishlist-btn:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.1);
+}
+
+
+.wishlist-btn.active {
+  color: red;
+}
+.wishlist-btn.active i {
+  font-weight: 900;
 }
 
 .old-price {
