@@ -9,35 +9,13 @@ import { loadProducts} from "./AuraHomeServices.js";
 
 //await forgotPassword("mustafawork911@gmail.com");
 //await loginUser("mustafawork911@gmail.com", "147852369");
-
-//await loadProducts();
-
-
-const sofaIcon=document.getElementById("sofa-icon");
-
-
-sofaIcon.addEventListener("mouseenter", ()=>{
-    if(sofaIcon.bouncing!=true){
-        sofaIcon.classList.add("fa-bounce");
-        sofaIcon.bouncing=true;
-    }
+/*
+var data=await loadProducts();
+data.forEach(e => {
+    console.log(e.data().Product_Name);
+    console.log(e.data().Price);
 });
-
-sofaIcon.addEventListener("mouseleave", ()=>{
-    sofaIcon.classList.remove("fa-bounce");
-    sofaIcon.bouncing=false;
-});
-
-
-document.querySelectorAll(".navbar-icon").forEach(icon=>{
-    icon.addEventListener("mouseenter", ()=>{
-        icon.classList.add("navbar-icon-hover");
-    });
-
-    icon.addEventListener("mouseleave", ()=>{
-        icon.classList.remove("navbar-icon-hover");
-    });
-});
+*/
 
 
 
@@ -70,4 +48,14 @@ function erase() {
 }
 
 type();
+
+
+
+
+document.getElementById("search-icon").addEventListener("click", ()=>{
+    document.getElementById("search-bar").scrollIntoView({
+        behavior:"smooth",
+        block:"end"
+    });
+})
 

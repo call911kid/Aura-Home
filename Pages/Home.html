@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Aura Home</title>
-    <link rel="icon" type="image/x-icon" href="../Resources/Images/favicon_io/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="../Resources/Images/favicon_io/favicon-96x96.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="../Styles/style.css">
@@ -41,11 +41,26 @@
 
 
                 <div class="navbar-right d-flex">
-                    <i id="whishlist-icon" type="button" class="fa-regular fa-heart navbar-icon" data-bs-toggle="offcanvas"
-                        data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"></i>
-                    <i id="search-icon" class="fa-solid fa-magnifying-glass navbar-icon"></i>
-                    <i id="user-icon" class="fa-solid fa-user navbar-icon"></i>
-                    <i id="cart-icon" class="fa-solid fa-cart-shopping navbar-icon"></i>
+                    <div class="icon-wrapper">
+                        <i id="whishlist-icon" type="button" class="fa-regular fa-heart navbar-icon"
+                            data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
+                            aria-controls="offcanvasWithBothOptions"></i>
+                    </div>
+
+
+                    <div class="icon-wrapper">
+                        <i id="search-icon" class="fa-solid fa-magnifying-glass navbar-icon"></i>
+                    </div>
+
+                    <div class="icon-wrapper">
+                        <i id="user-icon" class="fa-solid fa-user navbar-icon"></i>
+                    </div>
+
+                    <div class="icon-wrapper">
+                        <i id="cart-icon" class="fa-solid fa-cart-shopping navbar-icon"></i>
+                    </div>
+
+
                 </div>
             </div>
 
@@ -200,7 +215,8 @@
     </div>
 
 
-    <div class="search-bar container-fluid row">
+
+    <div id="search-bar" class="search-bar container-fluid row">
         <div class="search-headline col-12">
             <span>Search</Span>
             <span id="typing"></Span>
@@ -209,7 +225,7 @@
 
         <div class="col-12">
             <input type="text" placeholder="Find your next favorite piece…">
-            <button class="button" type="button" id="search-button">Search</button>
+            <button class="button-y" type="button" id="search-button">Search</button>
         </div>
 
     </div>
@@ -217,8 +233,42 @@
 
 
 
+    <div class="container prds">
+        <div class="card-group gap-5">
+            <div class="card">
+                <img src="../Resources/Images/ch1.webp" class="card-img-top rounded-circle" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Zavotti VEGA</h5>
+                    <p class="card-text">The Vega dining armchair balances design, quality and craftsmanship. Its solid wood frame adds strength, while its hand-woven fiber back adds warmth and texture.
+                        With sleek lines and a natural essence, it graces any interior space with timeless style.</p>
+                    <button class="button-y" style="background-color: #cca774 !important ;border: 1px solid;">Buy NOW</button>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../Resources/Images/ch2.webp" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Favius PILLAR</h5>
+                    <p class="card-text">The PILLAR chair by designer Martin Hirth embodies formal effortlessness, concise design and the highest level of sitting comfort. 
+                        With its harmonious radii, the chair frame's delicate lines provide a haptic experience and reveal its detailed workmanship. 
+                        </p>
+                    <button class="button-y" style="background-color: #695a54 !important; border: 1px solid;">Buy NOW</button>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../Resources/Images/ch3.webp" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Moroso PHEABY</h5>
+                    <p class="card-text">The Pheaby chair designed by Patricia Urquiola for Moroso, presents as an unusual antagonism between artisanal design and industrial thought, which resolves itself in the pure structural efficiency of the components.
+                        The legs, with feet rather more similar to a carpenter's</p>
+                    <button class="button-y" style="background-color: #647470 !important; border: 1px solid;">BUY NOW</button>
+                </div>
+            </div>
+        </div>
 
-    
+
+    </div>
+
+
 
     <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
         aria-labelledby="offcanvasWithBothOptionsLabel">
@@ -234,10 +284,75 @@
 
 
 
+    <div class="testimonial container-fluid">
+        <p class="t-headline">Testimonial</p>
+        <p class="t-subtitle">What Our Customers Say</p>
+
+        <div class="row">
+            <div class="col-sm-6 mb-3 mb-sm-0">
+                <div class="card">
+                    <div class="card-body m-3">
+                        <div class="card-title">
+                            <i class="fa-solid fa-star rating"></i>
+                            <i class="fa-solid fa-star rating"></i>
+                            <i class="fa-solid fa-star rating"></i>
+                            <i class="fa-solid fa-star rating"></i>
+                            <i class="fa-solid fa-star rating"></i>
+
+                        </div>
+                        <p class="card-text">❝The quick brown fox jumps over the lazy dog. Lorem ipsum dolor sit, amet
+                            consectetur adipisicing elit. Voluptates nam sint quo odit nulla nesciunt! Assumenda
+                            voluptates provident dolor vitae.❞</p>
+                        <div class="r-div">
+                            <img class="r-photo" src="../Resources/Images/yellow.png" alt="profile">
+                            <div class="r-text">
+                                <span class="r-name">Mustafa Hassan</span>
+                                <span class="r-role">Software Engineer</span>
+                            </div>
+                        </div>
 
 
 
-    <div class="card about container">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-sm-6 mb-3 mb-sm-0">
+                <div class="card">
+                    <div class="card-body m-3">
+                        <div class="card-title">
+                            <i class="fa-solid fa-star rating"></i>
+                            <i class="fa-solid fa-star rating"></i>
+                            <i class="fa-solid fa-star rating"></i>
+                            <i class="fa-solid fa-star rating"></i>
+                            <i class="fa-solid fa-star rating"></i>
+
+                        </div>
+                        <p class="card-text">❝The quick brown fox jumps over the lazy dog. Lorem ipsum dolor sit, amet
+                            consectetur adipisicing elit. Voluptates nam sint quo odit nulla nesciunt! Assumenda
+                            voluptates provident dolor vitae.❞</p>
+                        <div class="r-div">
+                            <img class="r-photo" src="../Resources/Images/green.png" alt="profile">
+                            <div class="r-text">
+                                <span class="r-name">Muhammad Abdelhady</span>
+                                <span class="r-role">Software Engineer</span>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <div class="card about container-fluid">
         <div class="card-body">
             <h5 class="hero-subtitle">About Aura Home</h5>
             <p class="card-text hero-title fs-1">From solid wood to refined upholstery, furniture transforms raw
@@ -245,7 +360,7 @@
                 functional works of art for the home.</p>
             <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
         </div>
-        
+
         <img src="../Resources/Images/mid-century-modern-living-room-interior-design-with-monstera-tree.jpg"
             class="card-img-bottom">
     </div>
@@ -259,11 +374,12 @@
 
 
 
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/2a6092e1db.js" crossorigin="anonymous"></script>
+    <script src="../Scripts/StaticScript.js"></script>
     <script src="../Scripts/HomeScript.js" type="module"></script>
 </body>
 

@@ -10,13 +10,15 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, se
 export async function loadProducts() {
   const querySnapshot = await getDocs(collection(db, "Product"));
 
+  /*
   querySnapshot.forEach((doc) => {
     console.log(doc.id, doc.data());
   });
+  */
 
   return querySnapshot;
 }
-loadProducts();
+//loadProducts();
 
 export async function getProductById(productId) {
   try {
@@ -203,7 +205,7 @@ export async function createOrder(cartItems, total) {
             items: cartItems,
             total: total,
             status: "pending",
-            createdAt: serverTimestamp()
+            createdAt: serverTimestamp()    
         });
 
         console.log("Order created");
