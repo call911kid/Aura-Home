@@ -8,7 +8,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     />
-    <link rel="stylesheet" href="../Styles/stlogin.css" />
+    <link rel="stylesheet" href="/Styles/stlogin.css" />
     <title>Login & Register</title>
   </head>
 
@@ -48,7 +48,8 @@
               required
             />
             <i
-              class="fa-solid fa-eye toggle-pass" id="x"
+              class="fa-solid fa-eye toggle-pass"
+              id="x"
               onclick="togglePassword('suPassword', this)"
             ></i>
           </div>
@@ -65,13 +66,8 @@
 
           <!-- Username -->
           <div class="icons">
-            <i class="fa-solid fa-user"></i>
-            <input
-              type="text"
-              id="siUsername"
-              placeholder="UserName"
-              required
-            />
+            <i class="fa-solid fa-envelope"></i>
+            <input type="email" id="siUsername" placeholder="Email" required />
           </div>
           <span id="siUsernameError" class="error"></span>
 
@@ -86,7 +82,8 @@
               required
             />
             <i
-              class="fa-solid fa-eye toggle-pass" id="x"
+              class="fa-solid fa-eye toggle-pass"
+              id="x"
               onclick="togglePassword('siPassword', this)"
             ></i>
           </div>
@@ -118,10 +115,7 @@
         </div>
       </div>
     </div>
-   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-    <script src="../Scripts/script.js"></script>
+    <script type="module" src="../Scripts/script.js"></script>
   </body>
 </html>

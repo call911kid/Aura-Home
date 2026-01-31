@@ -1,0 +1,188 @@
+:root {
+  --main-color: #025048;
+  --text-dark: #424b4a;
+  --bg-light: #f5f6fa;
+  --card-bg: #ffffff;
+}
+
+body {
+  background: var(--bg-light);
+  font-family: "Work Sans", sans-serif;
+  color: var(--text-dark);
+}
+/* العنوان داخل الـ wrapper فوق الفورم */
+.admin-form-wrapper h4 {
+  font-family: "Playfair Display", serif;
+  color: var(--main-color);
+  text-align: center; /* يوسط العنوان */
+  margin-bottom: 20px; /* مسافة بين العنوان والفورم */
+  font-size: 22px; /* حجم الخط أكبر لو تحبي */
+}
+
+/* ================= Sidebar ================= */
+.sidebar {
+  width: 240px;
+  height: 100vh;
+  background: #fff;
+  border-right: 1px solid #eee;
+  padding: 20px;
+
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.sidebar .logo {
+  font-family: "Playfair Display", serif;
+  color: var(--main-color);
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 22px;
+}
+
+.sidebar ul li {
+  margin-bottom: 12px;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: var(--text-dark);
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.sidebar ul li a.active,
+.sidebar ul li a:hover {
+  background: #eef3f3;
+  color: var(--main-color);
+}
+
+/* ================= Content ================= */
+.content {
+  margin-left: 240px;
+  padding: 20px;
+}
+
+.header {
+  background: var(--card-bg);
+  padding: 15px 20px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h5 {
+  font-family: "Playfair Display", serif;
+  color: var(--main-color);
+  margin: 0;
+}
+
+/* ================= Admin Form ================= */
+.admin-form-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center; 
+  flex-direction: column;  
+  align-items: center;     
+  margin-top: 30px;       
+}
+.admin-form-solid {
+  max-width: 550px;
+  width: 100%;
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.admin-form-solid input {
+  height: 50px;
+  border-radius: 12px;
+  border: 1.5px solid #d1d5db;
+  padding: 0 16px;
+  font-size: 15px;
+  font-family: "Work Sans", sans-serif;
+  transition: 0.3s ease;
+}
+
+.admin-form-solid input:focus {
+  outline: none;
+  border-color: var(--main-color);
+  box-shadow: 0 0 0 3px rgba(2, 80, 72, 0.12);
+}
+
+.admin-form-solid button {
+  background: var(--main-color);
+  color: #fff;
+  border: none;
+  height: 50px;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 15px;
+  transition: 0.3s ease;
+}
+
+.admin-form-solid button:hover {
+  background: #013b36;
+}
+
+.admin-form-solid button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+#adminMsg {
+  font-size: 14px;
+  text-align: center;
+}
+
+/* ================= Admins Table ================= */
+#adminsTableSection {
+  background: #fff;
+  padding: 25px;
+  border-radius: 18px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+  margin-top: 40px;
+}
+
+#adminsTableSection h4 {
+  font-family: "Playfair Display", serif;
+  color: var(--main-color);
+  margin-bottom: 15px;
+}
+
+#adminsTableSection table {
+  margin-bottom: 0;
+}
+
+#adminsTableSection th {
+  background: #f5f6fa;
+  font-size: 14px;
+  color: var(--text-dark);
+}
+
+#adminsTableSection td {
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+/* Action icons */
+#adminsTableSection i {
+  font-size: 15px;
+}
+
+#adminsTableSection i.fa-edit {
+  color: #2563eb;
+}
+
+#adminsTableSection i.fa-trash {
+  color: #dc2626;
+}

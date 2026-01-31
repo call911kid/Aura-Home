@@ -1,23 +1,27 @@
-/* ================= SHOW / HIDE PASSWORD ================= */
+import { registerUser, loginUser, forgotPassword } from "./AuraHomeServices.js";
+import { auth } from "./firebase.js";
+import {
+  getDoc,
+  doc,
+} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { db } from "./firebase.js";
 
-function togglePassword(inputId, icon) {
+/* ================= SHOW / HIDE PASSWORD ================= */
+window.togglePassword = function (inputId, icon) {
   const input = document.getElementById(inputId);
   if (!input) return;
 
   if (input.type === "password") {
     input.type = "text";
-    icon.classList.remove("fa-eye");
-    icon.classList.add("fa-eye-slash");
+    icon.classList.replace("fa-eye", "fa-eye-slash");
   } else {
     input.type = "password";
-    icon.classList.remove("fa-eye-slash");
-    icon.classList.add("fa-eye");
+    icon.classList.replace("fa-eye-slash", "fa-eye");
   }
-}
+};
 
 /* ================= MAIN CODE ================= */
-document.addEventListener("DOMContentLoaded", function () {
-  /* ===== ELEMENTS ===== */
+document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("container");
   const registerBtn = document.getElementById("register");
   const loginBtn = document.getElementById("login");
@@ -31,21 +35,16 @@ document.addEventListener("DOMContentLoaded", function () {
   // Sign In
   const siUsername = document.getElementById("siUsername");
   const siPassword = document.getElementById("siPassword");
-  const rememberMe = document.getElementById("rememberMe");
   const signInForm = document.getElementById("signInForm");
 
   /* ===== TOGGLE PANELS ===== */
-  if (registerBtn) {
-    registerBtn.addEventListener("click", () => {
-      container.classList.add("active");
-    });
-  }
+  registerBtn?.addEventListener("click", () =>
+    container.classList.add("active"),
+  );
 
-  if (loginBtn) {
-    loginBtn.addEventListener("click", () => {
-      container.classList.remove("active");
-    });
-  }
+  loginBtn?.addEventListener("click", () =>
+    container.classList.remove("active"),
+  );
 
   /* ===== HELPERS ===== */
   function showError(id, msg) {
@@ -65,134 +64,122 @@ document.addEventListener("DOMContentLoaded", function () {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
 
-  /* ===== LOCAL STORAGE ===== */
-  let users = JSON.parse(localStorage.getItem("users")) || [];
-
-  // Create default admin (once)
-  if (!users.some((u) => u.role === "admin")) {
-    users.push({
-      username: "admin",
-      email: "admin@gmail.com",
-      password: "admin123",
-      role: "admin",
-    });
-    localStorage.setItem("users", JSON.stringify(users));
-  }
-
-  // Load remember me data
-  if (localStorage.getItem("rememberMe") === "true") {
-    if (siUsername)
-      siUsername.value = localStorage.getItem("savedUsername") || "";
-    if (siPassword)
-      siPassword.value = localStorage.getItem("savedPassword") || "";
-    if (rememberMe) rememberMe.checked = true;
-  }
-
   /* ===================== SIGN UP ===================== */
-  if (signUpForm && suUsername && suEmail && suPassword) {
-    signUpForm.addEventListener("submit", function (e) {
-      e.preventDefault();
+  signUpForm?.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-      const username = suUsername.value.trim();
-      const email = suEmail.value.trim();
-      const password = suPassword.value.trim();
+    const username = suUsername.value.trim();
+    const email = suEmail.value.trim();
+    const password = suPassword.value.trim();
 
-      let valid = true;
+    let valid = true;
 
-      // Username validation
-      if (username.length < 3) {
-        showError("suUsernameError", "Username must be at least 3 characters");
-        valid = false;
-      } else hideError("suUsernameError");
+    if (username.length < 3) {
+      showError("suUsernameError", "Username must be at least 3 characters");
+      valid = false;
+    } else hideError("suUsernameError");
 
-      // Email validation
-      if (!isValidEmail(email)) {
-        showError("suEmailError", "Invalid email format");
-        valid = false;
-      } else hideError("suEmailError");
+    if (!isValidEmail(email)) {
+      showError("suEmailError", "Invalid email format");
+      valid = false;
+    } else hideError("suEmailError");
 
-      // Password validation
-      if (password.length < 6) {
-        showError("suPasswordError", "Password must be at least 6 characters");
-        valid = false;
-      } else hideError("suPasswordError");
+    if (password.length < 6) {
+      showError("suPasswordError", "Password must be at least 6 characters");
+      valid = false;
+    } else hideError("suPasswordError");
 
-      // Check duplicate username
-      if (users.some((u) => u.username === username)) {
-        alert("Username already exists ❌");
-        return;
-      }
+    if (!valid) return;
 
-      if (!valid) return;
+    const user = await registerUser(email, password);
 
-      users.push({
-        username,
-        email,
-        password,
-        role: "customer",
-      });
-
-      localStorage.setItem("users", JSON.stringify(users));
-      alert("Registration successful ✅");
-
-      this.reset();
+    if (user) {
+      alert("Account created successfully ");
+      signUpForm.reset();
       container.classList.remove("active");
-    });
-  }
+    } else {
+      alert("Registration failed ");
+    }
+  });
 
   /* ===================== SIGN IN ===================== */
-  if (signInForm && siUsername && siPassword) {
-    signInForm.addEventListener("submit", function (e) {
-      e.preventDefault();
+  signInForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-      const username = siUsername.value.trim();
-      const password = siPassword.value.trim();
+    const email = siUsername.value.trim();
+    const password = siPassword.value.trim();
 
-      if (username === "") {
-        showError("siUsernameError", "Username is required");
-        return;
-      } else hideError("siUsernameError");
+    if (!email) {
+      showError("siUsernameError", "Email is required");
+      return;
+    } else hideError("siUsernameError");
 
-      if (password === "") {
-        showError("siPasswordError", "Password is required");
-        return;
-      } else hideError("siPasswordError");
+    if (!password) {
+      showError("siPasswordError", "Password is required");
+      return;
+    } else hideError("siPasswordError");
 
-      // Find user by username only
-      const user = users.find((u) => u.username === username);
+    const user = await loginUser(email, password);
 
-      if (!user) {
-        alert("This account does not exist. Please create an account first.");
-        return;
-      }
+    if (!user) {
+      alert("Invalid email or password ");
+      return;
+    }
 
-      if (user.password !== password) {
-        alert("Incorrect password. Please try again.");
-        return;
-      }
+    // get role from Firestore
+    const userDoc = await getDoc(doc(db, "users", user.uid));
+    const role = userDoc.exists() ? userDoc.data().role : "customer";
 
-      // Save current user
-      localStorage.setItem("currentUser", JSON.stringify(user));
+    if (role === "admin") {
+      window.location.href = "index.html";
+    } else {
+      window.location.href = "home.html";
+    }
+  });
 
-      // Remember me
-      if (rememberMe && rememberMe.checked) {
-        localStorage.setItem("savedUsername", username);
-        localStorage.setItem("savedPassword", password);
-        localStorage.setItem("rememberMe", "true");
-      } else {
-        localStorage.removeItem("savedUsername");
-        localStorage.removeItem("savedPassword");
-        localStorage.setItem("rememberMe", "false");
-      }
+  /* ===================== FORGOT PASSWORD ===================== */
+  const forgotLink = document.querySelector('a[href="#"]');
 
-      // Role check
-      if (user.role === "admin") {
-        window.location.href = "index.html"; // dashboard
-      } else {
-        window.location.href = "home.html"; // صفحة المستخدم
-      }
+  forgotLink?.addEventListener("click", async (e) => {
+    e.preventDefault();
 
-      this.reset();
-    });
-  }
+    const email = siUsername.value.trim();
+
+    if (!email) {
+      alert("Please enter your email first ✉️");
+      return;
+    }
+
+    const success = await forgotPassword(email);
+
+    if (success) {
+      alert("Password reset email sent ");
+    } else {
+      alert("Failed to send reset email ");
+    }
+  });
 });
+
+async function adminLogin(email, password) {
+  const user = await loginUser(email, password);
+
+  if (!user) {
+    alert("Email or password is incorrect ");
+    return;
+  }
+
+  const userDoc = await getDoc(doc(db, "users", user.uid));
+
+  if (!userDoc.exists()) {
+    alert("User data not found ");
+    await auth.signOut();
+    return;
+  }
+
+  if (userDoc.data().role === "admin") {
+    window.location.href = "../Pages/Dashboard.html";
+  } else {
+    alert("Access denied Admin only");
+    await auth.signOut();
+  }
+}

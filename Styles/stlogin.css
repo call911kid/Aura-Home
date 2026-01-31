@@ -95,6 +95,7 @@ body {
   font-size: 20px;
   line-height: 20px;
   font-family: "Playfair Display", serif;
+
 }
 
 /* ================= HEADINGS ================= */
@@ -218,10 +219,11 @@ h1 {
 /* ================= ICONS ================= */
 .icons i {
   position: relative;
-  top: 40px;
+  top: 38px;
   margin-left: 5px;
   color: #025048;
   justify-content: center;
+  align-items: center;
 }
 
 /* ================= PASSWORD ================= */
@@ -290,6 +292,7 @@ h1 {
   h1 {
     font-size: 20px;
   }
+
 }
 #x {
   left: 285px;
