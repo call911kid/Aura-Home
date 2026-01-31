@@ -458,3 +458,19 @@
 
 
 
+
+
+.prds{
+    
+    margin: 3rem auto;
+    
+}
+.card{
+    border: none;
+}
+.prd-card-title{
+    font-family: 'Montserrat';
+}
+.prd-card-text{
+    font-family: 'Work-Sans';
+}
