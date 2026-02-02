@@ -1,0 +1,208 @@
+@font-face {
+  font-family: "workSans";
+  src: url("../Resources/Fonts/WorkSans-VariableFont_wght.ttf");
+  
+  
+}
+@font-face {
+  font-family: "PlayFair";
+  src: url("../Resources/Fonts/PlayfairDisplay-VariableFont_wght.ttf");
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../Resources/Fonts/Poppins-Regular.ttf");
+}
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Playfair+Display:wght@700&family=Work+Sans:wght@400;500;600&display=swap');
+
+:root {
+    --main-color: #025048;
+    --text-dark: #424b4a;
+    --bg-light: #f5f6fa;
+    --card-bg: #ffffff;
+    --accent-color: #eef3f3;
+    --danger: #dc3545;
+    --warning: #ffc107;
+}
+
+body {
+    background: var(--bg-light);
+    font-family: "Work Sans", sans-serif;
+    color: var(--text-dark);
+    margin: 0;
+    padding: 0;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background: #fff;
+    border-right: 1px solid #eee;
+    padding: 20px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+}
+
+.sidebar .logo {
+    font-family: "Playfair Display", serif;
+    color: var(--main-color);
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 22px;
+}
+
+.sidebar ul {
+    padding-left: 0;
+    list-style: none;
+}
+
+.sidebar ul li {
+    margin-bottom: 12px;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: var(--text-dark);
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.sidebar ul li a.active,
+.sidebar ul li a:hover {
+    background: var(--accent-color);
+    color: var(--main-color);
+}
+
+/* Main Content Area */
+.main-content {
+    margin-left: 240px;
+    padding: 30px;
+    min-height: 100vh;
+}
+
+.welcome-text {
+    font-family: "Playfair Display", serif;
+    color: var(--main-color);
+    font-size: 24px;
+    margin: 0;
+}
+
+.btn-signout {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 6px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: var(--text-dark);
+}
+
+/* Card Styling */
+.content-card {
+    background: var(--card-bg);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.card-title-custom {
+    color: var(--main-color);
+    font-weight: 600;
+}
+
+/* Form Styling */
+.form-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #666;
+}
+
+.form-control, .form-select {
+    border-radius: 8px;
+    border: 1px solid #eee;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--main-color);
+    box-shadow: 0 0 0 0.2rem rgba(2, 80, 72, 0.1);
+}
+
+.btn-main {
+    background: var(--main-color);
+    color: white;
+    padding: 10px 25px;
+    border-radius: 8px;
+    font-weight: 500;
+    border: none;
+}
+
+.btn-main:hover {
+    background: #013a34;
+    color: white;
+}
+
+/* Table Styling */
+.custom-table thead th {
+    background: #f8f9fa;
+    border: none;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #888;
+    padding: 15px;
+}
+
+.custom-table tbody td {
+    padding: 15px;
+    border-bottom: 1px solid #f1f1f1;
+    font-size: 14px;
+}
+
+.product-img-td {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.old-price-td {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 12px;
+}
+
+.action-btn {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    margin: 0 2px;
+    cursor: pointer;
+    transition: 0.2s;
+    border: none;
+}
+
+.edit-btn { background: #fff3cd; color: #856404; }
+.delete-btn { background: #f8d7da; color: #721c24; }
+
+.edit-btn:hover { background: #ffeeba; }
+.delete-btn:hover { background: #f5c6cb; }
+
+@media (max-width: 768px) {
+    .sidebar { width: 70px; padding: 10px; }
+    .sidebar .logo, .sidebar ul li a span { display: none; }
+    .main-content { margin-left: 70px; }
+}
