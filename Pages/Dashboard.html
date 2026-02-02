@@ -101,72 +101,9 @@
       </main>
     </div>
 
-    <script src="js/main.js"></script>
-    <script>
-      // Pie Chart
-
-      const orderStatusChart = new Chart(
-        document.getElementById("orderStatus"),
-        {
-          type: "doughnut",
-          data: {
-            labels: ["Completed", "In Progress", "Canceled"],
-            datasets: [
-              {
-                data: [],
-                backgroundColor: ["#22c55e", "#facc15", "#ef4444"],
-                borderWidth: 1,
-              },
-            ],
-          },
-          options: {
-            plugins: {
-              legend: {
-                display: true,
-              },
-            },
-            cutout: "70%",
-          },
-        },
-      );
-
-      // Bar Chart - Orders by Month (initially empty)
-      const ordersByMonthChart = new Chart(
-        document.getElementById("ordersByMonth"),
-        {
-          type: "bar",
-          data: {
-            labels: ["January", "February", "March", "April", "May", "June"],
-            datasets: [
-              {
-                label: "Number of Orders",
-                data: [],
-                backgroundColor: "#3b82f6",
-              },
-            ],
-          },
-          options: {
-            scales: {
-              y: {
-                beginAtZero: true,
-                ticks: {
-                  stepSize: 1,
-                },
-              },
-            },
-          },
-        },
-      );
-
-      // Sign Out
-      const logoutBtn = document.getElementById("logoutBtn");
-
-      if (logoutBtn) {
-        logoutBtn.addEventListener("click", function () {
-          localStorage.removeItem("currentUser");
-          window.location.href = "Login.html";
-        });
-      }
+    <script type="module" src="../Scripts/Dashboard.js" >
+    
+      
     </script>
   </body>
 </html>
