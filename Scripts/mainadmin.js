@@ -1,5 +1,5 @@
 // mainadmin.js
-import { db } from "./firebase.js";
+import { db, auth } from "./firebase.js";
 import { collection, doc, getDocs, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 // DOM Elements
@@ -12,7 +12,7 @@ const actionMsg = document.getElementById("actionMsg");
 async function loadUsers() {
   try {
     const snapshot = await getDocs(collection(db, "users"));
-    
+
     // Clear previous options
     usersDropdown.innerHTML = "<option value=''> -- Select a user -- </option>";
 
@@ -26,9 +26,10 @@ async function loadUsers() {
       usersDropdown.appendChild(option);
     });
 
+    actionMsg.textContent = "";
   } catch (error) {
     console.error("Error loading users:", error);
-    actionMsg.textContent = "Failed to load users.";
+    actionMsg.textContent = "Failed to load users. Check Firestore rules.";
     actionMsg.style.color = "red";
   }
 }
@@ -43,10 +44,16 @@ makeAdminBtn.addEventListener("click", async () => {
   }
 
   try {
+    const currentUser = auth.currentUser;
+    if (!currentUser) throw new Error("You must be logged in as admin");
+
+    const currentUserDoc = await getDocs(collection(db, "users"));
+    // يمكن هنا نضيف check للدور لو قواعد Firestore محسوبة
     await updateDoc(doc(db, "users", selectedId), { role: "admin" });
+
     actionMsg.textContent = "User promoted to Admin!";
     actionMsg.style.color = "green";
-    loadUsers(); // reload dropdown
+    loadUsers();
   } catch (error) {
     console.error("Error promoting user:", error);
     actionMsg.textContent = "Failed to promote user.";
@@ -69,7 +76,7 @@ deleteUserBtn.addEventListener("click", async () => {
     await deleteDoc(doc(db, "users", selectedId));
     actionMsg.textContent = "User deleted successfully!";
     actionMsg.style.color = "green";
-    loadUsers(); // reload dropdown
+    loadUsers();
   } catch (error) {
     console.error("Error deleting user:", error);
     actionMsg.textContent = "Failed to delete user.";
