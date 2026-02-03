@@ -35,7 +35,6 @@ body {
     padding: 0;
 }
 
-/* Sidebar Styling */
 .sidebar {
     width: 240px;
     height: 100vh;
@@ -83,7 +82,6 @@ body {
     color: var(--main-color);
 }
 
-/* Main Content Area */
 .main-content {
     margin-left: 240px;
     padding: 30px;
@@ -106,7 +104,6 @@ body {
     color: var(--text-dark);
 }
 
-/* Card Styling */
 .content-card {
     background: var(--card-bg);
     border-radius: 15px;
@@ -119,7 +116,6 @@ body {
     font-weight: 600;
 }
 
-/* Form Styling */
 .form-label {
     font-size: 13px;
     font-weight: 500;
@@ -152,7 +148,6 @@ body {
     color: white;
 }
 
-/* Table Styling */
 .custom-table thead th {
     background: #f8f9fa;
     border: none;
