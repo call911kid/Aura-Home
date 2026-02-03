@@ -296,6 +296,8 @@ resetBtn.addEventListener("click", () => {
 });
 
 initShop();*/
+
+
 import { loadProducts } from "../Scripts/AuraHomeServices.js";
 
 const productsRow = document.getElementById("products-row");
@@ -308,12 +310,10 @@ const quickPriceBtns = document.querySelectorAll(".quick-price");
 
 let allProducts = [];
 
-// --- Wishlist Helper Functions ---
 function getWishlist() {
     return JSON.parse(localStorage.getItem('aura_wishlist')) || [];
 }
 
-// Function to open/close Wishlist Sidebar
 export function toggleWishlist() {
     const sidebarElement = document.getElementById('wishlistSidebar');
     if (sidebarElement) {
@@ -325,7 +325,6 @@ export function toggleWishlist() {
     }
 }
 
-// Function to handle clicking the heart icon
 window.handleWishlistClick = function(e, btn) {
     e.stopPropagation();
     const card = btn.closest('.card');
@@ -359,7 +358,6 @@ window.handleWishlistClick = function(e, btn) {
 };
 
 
-// --- Make functions available to HTML (Critical for Modules) ---
 window.toggleWishlist = toggleWishlist;
 window.handleWishlistClick = handleWishlistClick;
 
@@ -394,7 +392,6 @@ function renderFilteredProducts() {
   if (productsRow) productsRow.innerHTML = "";
   if (productCount) productCount.innerText = `Showing ${filtered.length} products`;
 
-  // DECLARE wishlist here before the loop
   const wishlist = getWishlist();
 
   filtered.forEach((product) => {
@@ -439,7 +436,6 @@ function renderFilteredProducts() {
   });
 }
 
-// Event Listeners
 if (productsRow) {
     productsRow.addEventListener("click", (e) => {
         if (e.target.closest(".buy-now-btn") || e.target.closest(".wishlist-btn-overlay")) {

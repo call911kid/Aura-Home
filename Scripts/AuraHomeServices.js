@@ -84,7 +84,7 @@ export async function deleteProduct(productId) {
 
 
 
-export async function laodCategories() {
+export async function loadCategories() {
     const querySnapshot = await getDocs(collection(db, "Category"));
 
     querySnapshot.forEach((doc) => {
@@ -95,7 +95,7 @@ export async function laodCategories() {
 }
 
 
-export async function crateCategory(category) {
+export async function createCategory(category) {
     try {
         const docRef = await addDoc(collection(db, "Category"), {
             Name: category.Name

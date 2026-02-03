@@ -1,3 +1,4 @@
+
 @font-face {
   font-family: "workSans";
   src: url("../Resources/Fonts/WorkSans-VariableFont_wght.ttf");
@@ -12,80 +13,212 @@
   font-family: "Poppins";
   src: url("../Resources/Fonts/Poppins-Regular.ttf");
 }
-
-
-
 :root {
-  --main-color: #025048;
-  --text-dark: #424b4a;
-  --bg-light: #f5f6fa;
-  --card-bg: #ffffff;
+    --main-color: #025048;
+    --text-dark: #424b4a;
+    --bg-light: #f5f6fa;
+    --card-bg: #ffffff;
+    --accent-color: #eef3f3;
+    --danger: #dc3545;
+    --warning: #ffc107;
+    --border-color: #eee;
 }
 
 body {
-  background: var(--bg-light);
-  font-family: "Work Sans", sans-serif;
-  color: var(--text-dark);
+    background: var(--bg-light);
+    font-family: "Work Sans", sans-serif;
+    color: var(--text-dark);
+    margin: 0;
+    padding: 0;
 }
 
-
-
-.sidebar .logo {
-  font-family: "Playfair Display", serif;
-  color: var(--main-color);
-  text-align: center;
-  margin-bottom: 30px;
-  font-size: 22px;
+.d-flex {
+    display: flex;
 }
-
-
-
-
-
-
-
-
-
-
 
 .sidebar {
-  width: 240px;
-  height: 100vh;
-  background: #fff;
-  border-right: 1px solid #eee; 
-  padding: 20px;
-
-  position: fixed;
-  left: 0; 
-  top: 0;
+    width: 240px;
+    height: 100vh;
+    background: #fff;
+    border-right: 1px solid var(--border-color);
+    padding: 20px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1000;
 }
 
 .sidebar .logo {
-  font-family: "Playfair Display", serif;
-  color: var(--main-color);
-  text-align: center;
-  margin-bottom: 30px;
-  font-size: 22px;
+    font-family: "Playfair Display", serif;
+    color: var(--main-color);
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 22px;
+}
+
+.sidebar ul {
+    padding-left: 0;
+    list-style: none;
 }
 
 .sidebar ul li {
-  margin-bottom: 12px;
+    margin-bottom: 12px;
 }
 
 .sidebar ul li a {
-  text-decoration: none;
-  color: var(--text-dark);
-  padding: 10px 12px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  border-radius: 8px;
-  font-weight: 500;
+    text-decoration: none;
+    color: var(--text-dark);
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
 }
 
 .sidebar ul li a.active,
 .sidebar ul li a:hover {
-  background: #eef3f3;
-  color: var(--main-color);
+    background: var(--accent-color);
+    color: var(--main-color);
 }
 
+.main-content {
+    margin-left: 240px; 
+    padding: 40px;
+    width: calc(100% - 240px);
+    min-height: 100vh;
+}
+
+.content-card {
+    background: var(--card-bg);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    margin-bottom: 25px;
+}
+
+.card-title-custom {
+    color: var(--main-color);
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+    font-size: 20px;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 10px;
+}
+
+.form-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+
+.form-control {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    padding: 12px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.form-control:focus {
+    border-color: var(--main-color);
+    box-shadow: 0 0 0 3px rgba(2, 80, 72, 0.1);
+    outline: none;
+}
+
+.btn-main {
+    background: var(--main-color);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: 600;
+    border: none;
+    transition: 0.3s;
+}
+
+.btn-main:hover {
+    background: #013a34;
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background: #f8f9fa;
+    color: #666;
+    border: 1px solid #ddd;
+    padding: 12px 25px;
+    border-radius: 8px;
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.custom-table thead th {
+    background: #f8f9fa;
+    color: #888;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 15px;
+    border: none;
+}
+
+.custom-table tbody td {
+    padding: 20px 15px;
+    border-bottom: 1px solid #f1f1f1;
+    font-size: 15px;
+}
+
+.action-btn {
+    width: 35px;
+    height: 35px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    margin: 0 5px;
+    border: none;
+    transition: 0.2s;
+}
+
+.edit-btn { background: #eef3f3; color: var(--main-color); }
+.delete-btn { background: #fff0f0; color: var(--danger); }
+
+.edit-btn:hover { background: var(--main-color); color: white; }
+.delete-btn:hover { background: var(--danger); color: white; }
+
+@media (max-width: 992px) {
+    .sidebar {
+        width: 80px;
+        padding: 15px 10px;
+    }
+    .sidebar .logo, .sidebar ul li a span {
+        display: none;
+    }
+    .sidebar ul li a {
+        justify-content: center;
+        padding: 15px;
+    }
+    .main-content {
+        margin-left: 80px;
+        width: calc(100% - 80px);
+        padding: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .main-content {
+        padding: 15px;
+    }
+    .content-card {
+        padding: 20px;
+    }
+    .btn-main, .btn-secondary {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
