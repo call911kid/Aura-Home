@@ -1,19 +1,18 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Products Page</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-      crossorigin="anonymous"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
     <link rel="stylesheet" href="../Styles/Products-Page-Style.css" />
     <link rel="stylesheet" href="../Styles/style.css">
-  </head>
-  <body>
+    <link rel="stylesheet" href="../Styles/sidbarstyle.css">
+</head>
+
+<body>
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid d-flex align-items-center justify-content-between">
 
@@ -33,23 +32,39 @@
                     <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Shop</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contactUs.html">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="myOrder.html">Orders</a></li>
                 </ul>
 
+                <div class="navbar-right d-flex align-items-center">
+                    <div class="position-relative d-inline-block cursor-pointer me-3" onclick="toggleWishlist()"
+                        style="cursor: pointer;">
+                        <i id="whishlist-icon" class="fa-regular fa-heart navbar-icon"></i>
+                        <span id="wishlist-count"
+                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                            style="display: none; font-size: 0.65rem; min-width: 18px; height: 18px; line-height: 10px;">
+                            0
+                        </span>
+                    </div>
+                    <i id="search-icon" class="fa-solid fa-magnifying-glass navbar-icon me-3"></i>
+                    <i id="user-icon" class="fa-solid fa-user navbar-icon me-3"></i>
 
-                <div class="navbar-right d-flex">
-                    <i id="whishlist-icon" type="button" class="fa-regular fa-heart navbar-icon" data-bs-toggle="offcanvas"
-                        data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"></i>
-                    <i id="search-icon" class="fa-solid fa-magnifying-glass navbar-icon"></i>
-                    <i id="user-icon" class="fa-solid fa-user navbar-icon"></i>
-                    <i id="cart-icon" class="fa-solid fa-cart-shopping navbar-icon"></i>
+                    <div class="position-relative d-inline-block cursor-pointer" onclick="toggleCart()"
+                        style="cursor: pointer;">
+                        <i id="cart-icon" class="fa-solid fa-cart-shopping navbar-icon"></i>
+                        <span id="cart-count"
+                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                            style="display: none; font-size: 0.65rem; min-width: 18px; height: 18px; line-height: 10px;">
+                            0
+                        </span>
+                    </div>
                 </div>
             </div>
 
         </div>
     </nav>
 
-     <div class="container mt-5">
+    <div class="container mt-5">
         <div class="hero-section mb-5 text-center">
             <h1 class="main-title">All Products</h1>
             <p class="subtitle">High-quality luxury furniture</p>
@@ -60,13 +75,15 @@
                 <div class="sidebar-filters sticky-sidebar">
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h5 class="fw-normal mb-0">Filters</h5>
-                        <button id="reset-filters" class="btn btn-sm btn-light border rounded px-3 py-1 text-muted" style="font-size: 12px;">Reset</button>
+                        <button id="reset-filters" class="btn btn-sm btn-light border rounded px-3 py-1 text-muted"
+                            style="font-size: 12px;">Reset</button>
                     </div>
                     <hr class="mb-4" style="opacity: 0.1;">
 
                     <div class="filter-group mb-5">
                         <h6 class="fw-normal mb-3">Price Range</h6>
-                        <input type="range" id="price-range" class="form-range custom-range-slider" min="0" max="2000" step="50" value="2000">
+                        <input type="range" id="price-range" class="form-range custom-range-slider" min="0" max="2000"
+                            step="50" value="2000">
                         <div class="d-flex justify-content-between subtitle mt-2">
                             <span>$0</span>
                             <span id="price-value">$2000</span>
@@ -76,10 +93,14 @@
                     <div class="filter-group mb-5">
                         <h6 class="fw-normal mb-3">Quick Select:</h6>
                         <div class="row g-2">
-                            <div class="col-6"><button class="btn btn-outline-custom w-100 quick-price" data-max="50">Under $50</button></div>
-                            <div class="col-6"><button class="btn btn-outline-custom w-100 quick-price" data-min="50" data-max="200">$50-$200</button></div>
-                            <div class="col-6"><button class="btn btn-outline-custom w-100 quick-price" data-min="200" data-max="500">$200-$500</button></div>
-                            <div class="col-6"><button class="btn btn-outline-custom w-100 quick-price" data-min="500">$500+</button></div>
+                            <div class="col-6"><button class="btn btn-outline-custom w-100 quick-price"
+                                    data-max="50">Under $50</button></div>
+                            <div class="col-6"><button class="btn btn-outline-custom w-100 quick-price" data-min="50"
+                                    data-max="200">$50-$200</button></div>
+                            <div class="col-6"><button class="btn btn-outline-custom w-100 quick-price" data-min="200"
+                                    data-max="500">$200-$500</button></div>
+                            <div class="col-6"><button class="btn btn-outline-custom w-100 quick-price"
+                                    data-min="500">$500+</button></div>
                         </div>
                     </div>
 
@@ -89,19 +110,23 @@
                         <h6 class="fw-normal mb-4">Categories</h6>
                         <div class="category-list">
                             <div class="form-check mb-3">
-                                <input class="form-check-input category-check" type="checkbox" value="Chairs" id="cat-chairs">
+                                <input class="form-check-input category-check" type="checkbox" value="Chairs"
+                                    id="cat-chairs">
                                 <label class="form-check-label ms-2" for="cat-chairs">Chairs</label>
                             </div>
                             <div class="form-check mb-3">
-                                <input class="form-check-input category-check" type="checkbox" value="Sofas" id="cat-sofas">
+                                <input class="form-check-input category-check" type="checkbox" value="Sofas"
+                                    id="cat-sofas">
                                 <label class="form-check-label ms-2" for="cat-sofas">Sofas</label>
                             </div>
                             <div class="form-check mb-3">
-                                <input class="form-check-input category-check" type="checkbox" value="Tables" id="cat-tables">
+                                <input class="form-check-input category-check" type="checkbox" value="Tables"
+                                    id="cat-tables">
                                 <label class="form-check-label ms-2" for="cat-tables">Tables</label>
                             </div>
                             <div class="form-check mb-3">
-                                <input class="form-check-input category-check" type="checkbox" value="Beds" id="cat-beds">
+                                <input class="form-check-input category-check" type="checkbox" value="Beds"
+                                    id="cat-beds">
                                 <label class="form-check-label ms-2" for="cat-beds">Beds</label>
                             </div>
                         </div>
@@ -121,8 +146,56 @@
             </div>
         </div>
     </div>
+    <!-- Shoping cart -->
+    <div class="offcanvas offcanvas-end aura-sidebar-premium" tabindex="-1" id="cartSidebar"
+        aria-labelledby="cartSidebarLabel">
+        <div class="offcanvas-header border-bottom">
+            <h5 class="offcanvas-title text-white" id="cartSidebarLabel">My Cart <i
+                    class="fa-solid fa-bag-shopping text-success ms-2"></i></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column">
+            <div id="cart-items-container" class="flex-grow-1 overflow-auto">
+                <!-- Cart Items will be injected here via JS -->
+            </div>
+
+            <div class="p-3 border-top">
+                <div class="d-flex justify-content-between mb-2">
+                    <span> Total:</span>
+                    <span id="cart-total-price" class="fw-bold">$0.00</span>
+                </div>
+                <button class="btn btn-outline-custom w-100 py-3 checkout-btn-main" onclick="handleCheckout()">
+                    Checkout
+                </button>
+                <p class="text-center text-muted mt-2" style="font-size: 0.75rem;">
+            </div>
+        </div>
+    </div>
+    <!-- Wishlist Sidebar -->
+<div class="offcanvas offcanvas-end aura-sidebar-premium" tabindex="-1" id="wishlistSidebar" aria-labelledby="wishlistSidebarLabel">
+    <div class="offcanvas-header border-bottom">
+        <h5 class="offcanvas-title text-white" id="wishlistSidebarLabel">My Wishlist <i class="fa-solid fa-heart text-danger ms-2"></i></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column">
+        <div id="wishlist-items-container" class="flex-grow-1 overflow-auto">
+            <!-- Wishlist Items will be injected here via JS -->
+        </div>
+        <div class="p-3 border-top">
+            <button class="btn btn-outline-custom w-100 py-3" onclick="closeWishlist()" data-bs-dismiss="offcanvas">
+                Continue Shopping
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+    <script src="../Scripts/wishlist.js" type="module"></script>
+    <script src="../Scripts/Cartscript.js" type="module"></script>
     <script src="../Scripts/ProductPageScript.js" type="module"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/2a6092e1db.js" crossorigin="anonymous"></script>
-  </body>
+</body>
+
 </html>

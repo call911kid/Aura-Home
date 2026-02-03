@@ -375,3 +375,38 @@ footer {
 .sticky-sidebar::-webkit-scrollbar {
     width: 0px;
 }
+#cart-count {
+    padding: 0.25em 0.5em;
+    z-index: 10;
+}
+
+.navbar-icon {
+    cursor: pointer;
+    position: relative;
+}
+/* Notifaction*/
+#cart-count {
+    min-width: 18px;
+    height: 18px;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: bold;
+    border: 1px solid white; 
+    z-index: 99; 
+}
+
+.navbar-right .position-relative {
+    display: inline-flex !important;
+    vertical-align: middle;
+}
+/* Wish list*/
+.wishlist-btn-overlay:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+}
+
+.wishlist-btn-overlay i {
+    font-size: 1.1rem;
+}

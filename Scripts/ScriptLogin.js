@@ -126,6 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+
     // get role from Firestore
     const userDoc = await getDoc(doc(db, "users", user.uid));
     const role = userDoc.exists() ? userDoc.data().role : "customer";
@@ -135,7 +136,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
       window.location.href = "../Pages/Dashboard.html";
     } else {
-      window.location.href = "../Pages/Home.html";
+      const redirectTo = sessionStorage.getItem('redirectAfterLogin');
+      if (redirectTo) {
+        sessionStorage.removeItem('redirectAfterLogin'); 
+        window.location.href = redirectTo; 
+      } else {
+        window.location.href = "../Pages/Home.html"; 
+      }
     }
   });
 

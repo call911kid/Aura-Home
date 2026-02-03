@@ -1,0 +1,275 @@
+.sticky-sidebar::-webkit-scrollbar {
+    width: 0px;
+}
+/**/
+/* تحسين شكل بطاقة المنتج في قائمة الأمنيات */
+.wishlist-item-card {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 12px;
+    padding: 12px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.wishlist-item-card:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    border-color: #e0e0e0;
+}
+
+.wishlist-item-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    background: #f8f8f8;
+}
+
+.wishlist-item-details {
+    flex: 1;
+    padding: 0 15px;
+}
+
+.wishlist-item-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #2d2d2d;
+    margin-bottom: 4px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.wishlist-item-price {
+    color: #8b5e3c; 
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+/* أزرار التحكم */
+ /************************   Wish List  **********************/
+
+.custom-wishlist-sidebar {
+    width: 420px !important;
+    background-color: #ffffff;
+    border-left: 1px solid rgba(0,0,0,0.05) !important;
+    box-shadow: -15px 0 40px rgba(0,0,0,0.03) !important;
+}
+
+.btn-close-custom {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #bcbcbc;
+    transition: 0.3s;
+}
+.btn-close-custom:hover { color: #1a1a1a; transform: rotate(90deg); }
+
+.premium-wish-card {
+    display: flex;
+    gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f8f8f8;
+    transition: 0.4s;
+}
+
+.premium-wish-card:hover {
+    transform: translateX(5px);
+}
+
+.wish-img-box {
+    width: 100px;
+    height: 120px;
+    overflow: hidden;
+    background: #fdfdfd;
+    border-radius: 4px;
+}
+.wish-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.6s;
+}
+.premium-wish-card:hover .wish-img-box img { transform: scale(1.1); }
+
+.wish-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.wish-name {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #1a1a1a;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.wish-price {
+    font-family: 'Playfair Display', serif; 
+    color: #8b5e3c;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.wish-btns {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-move-cart {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #1a1a1a;
+    border-bottom: 1px solid #1a1a1a;
+    transition: 0.3s;
+}
+.btn-move-cart:hover { color: #8b5e3c; border-color: #8b5e3c; }
+
+.btn-del-wish {
+    background: #fdfdfd;
+    border: 1px solid #eee;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    color: #d1d1d1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    transition: 0.3s;
+}
+.btn-del-wish:hover { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+
+#wishlist-count,
+#cart-count {
+    border: 2px solid white;
+}
+
+/* opisty cart */
+#cart-items-container {
+    transition: opacity 0.4s ease;
+}
+/***********************************************************22*/
+/* Sidebar Background & Border */
+.aura-sidebar-premium {
+    width: 450px !important;
+    background: #ffffff;
+    
+    border-radius: 40px 0 0 40px !important; 
+    
+    border: 6px solid #025048 !important; 
+    outline: 6px solid rgba(139, 94, 60, 0.1) !important;
+    outline-offset: -8px; 
+
+    box-shadow: 
+        -20px 0 50px rgba(0, 0, 0, 0.2),      
+        -5px 0 15px rgba(0, 0, 0, 0.1),       
+        inset 5px 0 15px rgba(255,255,255,0.8) !important; 
+
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.offcanvas-header {
+    padding: 2rem !important;
+    background: linear-gradient(to bottom, #025048, #025048);
+    border-bottom: 1px solid #eee !important;
+}
+
+.btn-close {
+    background-color: #fff !important;
+    border: 1px solid #000 !important;
+    border-radius: 50% !important;
+    opacity: 1 !important;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1) !important;
+    padding: 0.8rem !important;
+}
+
+/* previous orders*/
+.order-master-card {
+    background: #fff;
+    border: 2px solid #1a1a1a; 
+    border-radius: 25px; 
+    padding: 30px;
+    box-shadow: 10px 10px 0px rgba(139, 94, 60, 0.1); 
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.order-master-card:hover {
+    transform: translate(-5px, -5px);
+    box-shadow: 15px 15px 0px rgba(139, 94, 60, 0.2);
+}
+
+.status-pill {
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.status-pending { background: #fff4e5; color: #b07000; border: 1px solid #ffd08a; }
+.status-confirmed { background: #e6f9f0; color: #007d43; border: 1px solid #a8e6c9; }
+
+.order-items-grid {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.order-item-thumb {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid #eee;
+}
+
+.order-meta {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: #8b5e3c;
+}
+.aura-btn-primary-bold {
+    background-color: #025048;
+    color: #fff;
+    border: 2px solid #1a1a1a;
+    border-radius: 15px; 
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.aura-btn-primary-bold:hover {
+    background-color: #025048; 
+    border-color: #f7f6f5;
+    transform: translateY(-3px);
+}
+
+.aura-btn-primary-bold:active {
+    transform: translateY(1px);
+}
+
+.footer-hidden {
+    display: none !important;
+}

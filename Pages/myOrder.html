@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - Aura Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="../Styles/style.css"> <style>
+        :root { --aura-brown: #8B5E3C; --aura-dark: #1a1a1a; }
+        body { background-color: #fdfdfd; }
+        .orders-container { margin-top: 50px; margin-bottom: 100px; }
+        .table-header { background-color: var(--aura-dark); color: white; }
+        .status-badge { padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; }
+        .status-pending { background-color: #ffeeba; color: #856404; }
+        .search-box { max-width: 300px; border-radius: 20px; border: 1px solid #ddd; padding: 8px 20px; }
+        .order-row:hover { background-color: #f8f9fa; cursor: pointer; }
+    </style>
+</head>
+<body>
+        <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid d-flex align-items-center justify-content-between">
+
+
+            <a class="navbar-brand" href="#">
+                <i id="sofa-icon" class="fa-solid fa-couch"></i> Aura Home</a>
+
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <i class="fa-solid fa-bars" style="color: #ffffff;"></i>
+            </button>
+
+
+            <div class="collapse navbar-collapse" id="mainNav">
+
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-4 navbar-center">
+                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Shop</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                </ul>
+
+                <div class="navbar-right d-flex align-items-center">
+                    <i id="whishlist-icon" class="fa-regular fa-heart navbar-icon me-3"></i>
+                    <i id="search-icon" class="fa-solid fa-magnifying-glass navbar-icon me-3"></i>
+                    <i id="user-icon" class="fa-solid fa-user navbar-icon me-3"></i>
+
+                    <div class="position-relative d-inline-block cursor-pointer" onclick="toggleCart()"
+                        style="cursor: pointer;">
+                        <i id="cart-icon" class="fa-solid fa-cart-shopping navbar-icon"></i>
+                        <span id="cart-count"
+                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                            style="display: none; font-size: 0.65rem; min-width: 18px; height: 18px; line-height: 10px;">
+                            0
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="container orders-container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold">My Orders</h2>
+            <input type="text" id="orderSearch" class="search-box" placeholder="Search orders...">
+        </div>
+
+        <div class="card border-0 shadow-sm">
+            <div class="table-responsive">
+                <table class="table mb-0">
+                    <thead class="table-header text-center">
+                        <tr>
+                            <th class="py-3">Order #</th>
+                            <th class="py-3">Customer</th>
+                            <th class="py-3">Date</th>
+                            <th class="py-3">Total</th>
+                            <th class="py-3">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody" class="text-center">
+                        <tr>
+                            <td colspan="5" class="py-5 text-muted">Loading your orders...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { db, auth } from "../Scripts/firebase.js";
+        import { collection, query, where, getDocs, orderBy } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+        const ordersTableBody = document.getElementById('ordersTableBody');
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                fetchUserOrders(user.uid);
+            } else {
+                window.location.href = "Login.html";
+            }
+        });
+
+        async function fetchUserOrders(userId) {
+            try {
+                const q = query(
+                    collection(db, "Orders"),
+                    where("userId", "==", userId),
+                    orderBy("createdAt", "desc")
+                );
+
+                const querySnapshot = await getDocs(q);
+                
+                if (querySnapshot.empty) {
+                    ordersTableBody.innerHTML = `<tr><td colspan="5" class="py-5">No orders found.</td></tr>`;
+                    return;
+                }
+
+                ordersTableBody.innerHTML = "";
+                querySnapshot.forEach((doc) => {
+                    const order = doc.data();
+                    const date = order.createdAt ? new Date(order.createdAt.seconds * 1000).toLocaleDateString() : "N/A";
+                    
+                    const row = `
+                        <tr class="order-row align-middle">
+                            <td class="fw-bold">#${doc.id.substring(0, 6)}</td>
+                            <td>${order.userEmail.split('@')[0]}</td>
+                            <td>${date}</td>
+                            <td class="fw-bold">$${order.totalAmount}</td>
+                            <td><span class="status-badge status-pending">${order.status || 'Pending'}</span></td>
+                        </tr>
+                    `;
+                    ordersTableBody.innerHTML += row;
+                });
+            } catch (error) {
+                console.error("Error fetching orders:", error);
+                ordersTableBody.innerHTML = `<tr><td colspan="5" class="py-5 text-danger">Failed to load orders.</td></tr>`;
+            }
+        }
+    </script>
+</body>
+</html>

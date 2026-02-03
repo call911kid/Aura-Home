@@ -1,0 +1,125 @@
+body {
+            background-color: #f8f9fa;
+            font-family: "Playfair Display", serif;
+            font-optical-sizing: auto;
+            font-style: normal;
+            min-height: 80vh; 
+            display: flex;
+            align-items: center;
+            justify-content: center; 
+            margin: 0;
+            padding: 20px;
+
+        }
+        h1, h2, h3, .btn-send {
+        font-family: "Playfair Display", serif;
+    }
+    
+
+        .contact-container {
+            max-width: 1000px;
+            margin: 50px auto;
+            background: #ffffff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(194, 36, 36, 0.1);
+            
+        }
+        .form-label, .text-muted, .info-item span {
+        font-family: 'Poppins', sans-serif;
+    }
+
+        .contact-info {
+            background-color: #117262;
+            color: #fff;
+            padding: 40px;
+            position: relative;
+        }
+
+        .contact-info h2 {
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .contact-info p {
+            color:#fff;
+            margin-bottom: 40px;
+        }
+
+        .info-item {
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+
+        .info-item i {
+            font-size: 1.2rem;
+            margin-right: 15px;
+        }
+
+        .social-icons {
+            margin-top: 100px;
+        }
+
+        .social-icons a {
+            color: #fff;
+            margin-right: 15px;
+            font-size: 1.2rem;
+            background: #025048;
+            padding: 10px;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .social-icons a:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        .contact-form {
+            padding: 40px;
+        }
+
+        .form-control {
+            border: none;
+            border-bottom: 2px solid #928c8c;
+            border-radius: 0;
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #000;
+        }
+
+        .btn-send {
+            background: #025048;
+            color: #fff;
+            padding: 12px 40px;
+            border-radius: 5px;
+            float: right;
+            transition: 0.3s;
+        }
+
+        .btn-send:hover {
+            background: #dfcccc;
+            color: #fff;
+        }
+
+    
+
+        .btn-send {
+            z-index: 2;
+            
+        }
+
+      
+        .text-end img {
+            margin-right: -70px;
+            margin-top: 30px;
+            animation: fadeInUp 1s ease-in-out;
+            
+        }
+        
+ 
