@@ -1,3 +1,11 @@
+
+//
+import { addDoc, serverTimestamp } 
+from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+//
+
+
 import { db } from "./firebase.js";
 import {
   collection,
@@ -9,6 +17,16 @@ import {
 
 const ordersTable = document.getElementById("ordersTable");
 const searchInput = document.getElementById("searchInput");
+//
+console.log("Orders page JS loaded");
+await addDoc(collection(db, "orders"), {
+  userId: "test123",
+  userEmail: "test@email.com",
+  total: 400,
+  status: "pending",
+  createdAt: serverTimestamp()
+});
+
 
 let allOrders = [];
 
@@ -72,6 +90,7 @@ function attachEvents() {
       }
     };
   });
+  
 
   // EDIT STATUS
   document.querySelectorAll(".btn-edit").forEach(btn => {

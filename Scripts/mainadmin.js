@@ -1,40 +1,47 @@
-// mainadmin.js
 import { db, auth } from "./firebase.js";
-import { collection, doc, getDocs, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import {
+  collection,
+  doc,
+  getDocs,
+  getDoc,
+  updateDoc
+} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-// DOM Elements
+/* ================= ELEMENTS ================= */
 const usersDropdown = document.getElementById("usersDropdown");
 const makeAdminBtn = document.getElementById("makeAdminBtn");
 const deleteUserBtn = document.getElementById("deleteUserBtn");
 const actionMsg = document.getElementById("actionMsg");
 
-// Load users into dropdown
+/* ================= LOAD USERS ================= */
 async function loadUsers() {
   try {
     const snapshot = await getDocs(collection(db, "users"));
 
-    // Clear previous options
-    usersDropdown.innerHTML = "<option value=''> -- Select a user -- </option>";
+    usersDropdown.innerHTML =
+      "<option value=''> -- Select a user -- </option>";
 
-    snapshot.forEach(docSnap => {
+    snapshot.forEach((docSnap) => {
       const user = docSnap.data();
-      const userId = docSnap.id;
+
+      // ❌ متظهرش المستخدمين المحذوفين
+      if (user.role === "deleted") return;
 
       const option = document.createElement("option");
-      option.value = userId;
+      option.value = docSnap.id;
       option.textContent = `${user.email} (${user.role})`;
       usersDropdown.appendChild(option);
     });
 
     actionMsg.textContent = "";
   } catch (error) {
-    console.error("Error loading users:", error);
-    actionMsg.textContent = "Failed to load users. Check Firestore rules.";
+    console.error(error);
+    actionMsg.textContent = "Failed to load users.";
     actionMsg.style.color = "red";
   }
 }
 
-// Make selected user an admin
+/* ================= MAKE ADMIN ================= */
 makeAdminBtn.addEventListener("click", async () => {
   const selectedId = usersDropdown.value;
   if (!selectedId) {
@@ -45,23 +52,33 @@ makeAdminBtn.addEventListener("click", async () => {
 
   try {
     const currentUser = auth.currentUser;
-    if (!currentUser) throw new Error("You must be logged in as admin");
+    if (!currentUser) throw new Error("Not logged in");
 
-    const currentUserDoc = await getDocs(collection(db, "users"));
-    // يمكن هنا نضيف check للدور لو قواعد Firestore محسوبة
-    await updateDoc(doc(db, "users", selectedId), { role: "admin" });
+    const currentUserDoc = await getDoc(
+      doc(db, "users", currentUser.uid)
+    );
 
-    actionMsg.textContent = "User promoted to Admin!";
+    if (currentUserDoc.data().role !== "admin") {
+      actionMsg.textContent = "Only admins can do this!";
+      actionMsg.style.color = "red";
+      return;
+    }
+
+    await updateDoc(doc(db, "users", selectedId), {
+      role: "admin",
+    });
+
+    actionMsg.textContent = "User promoted to admin!";
     actionMsg.style.color = "green";
     loadUsers();
   } catch (error) {
-    console.error("Error promoting user:", error);
-    actionMsg.textContent = "Failed to promote user.";
+    console.error(error);
+    actionMsg.textContent = "Promotion failed.";
     actionMsg.style.color = "red";
   }
 });
 
-// Delete selected user
+/* ================= DELETE USER (SOFT DELETE) ================= */
 deleteUserBtn.addEventListener("click", async () => {
   const selectedId = usersDropdown.value;
   if (!selectedId) {
@@ -73,16 +90,34 @@ deleteUserBtn.addEventListener("click", async () => {
   if (!confirm("Are you sure you want to delete this user?")) return;
 
   try {
-    await deleteDoc(doc(db, "users", selectedId));
+    const currentUser = auth.currentUser;
+    if (!currentUser) throw new Error("Not logged in");
+
+    const currentUserDoc = await getDoc(
+      doc(db, "users", currentUser.uid)
+    );
+
+    if (currentUserDoc.data().role !== "admin") {
+      actionMsg.textContent = "Only admins can delete users!";
+      actionMsg.style.color = "red";
+      return;
+    }
+
+    // ✅ Soft delete
+    await updateDoc(doc(db, "users", selectedId), {
+      role: "deleted",
+      deletedAt: new Date(),
+    });
+
     actionMsg.textContent = "User deleted successfully!";
     actionMsg.style.color = "green";
     loadUsers();
   } catch (error) {
-    console.error("Error deleting user:", error);
-    actionMsg.textContent = "Failed to delete user.";
+    console.error(error);
+    actionMsg.textContent = "Delete failed.";
     actionMsg.style.color = "red";
   }
 });
 
-// Initial load
+/* ================= INIT ================= */
 window.addEventListener("DOMContentLoaded", loadUsers);
