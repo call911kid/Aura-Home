@@ -23,7 +23,7 @@ function showCustomPopup(title, message, type = 'alert') {
                 <div style="display: flex; gap: 10px;">
                     ${isAuth ? `
                         <button id="popup-main-btn" style="background: #025048; color: white; border: none; padding: 12px 20px; border-radius: 50px; font-family: 'workSans', sans-serif; font-weight: bold; cursor: pointer; flex: 1;">
-                            Sign Up Now
+                            Sign in Now
                         </button>
                         <button onclick="document.getElementById('${popupId}').remove()" style="background: transparent; color: #8E8E93; border: 1px solid #ddd; padding: 12px 20px; border-radius: 50px; font-family: 'workSans', sans-serif; font-weight: bold; cursor: pointer; flex: 1;">
                             Cancel
@@ -156,7 +156,7 @@ async function handleCheckout() {
 
   const user = auth.currentUser;
   if (!user) {
-    showCustomPopup("Sign Up Required", "Please sign up or log in to complete your order.", "auth");
+    showCustomPopup("Sign in Required", "Please Sign in or log in to complete your order.", "auth");
     sessionStorage.setItem("redirectAfterLogin", window.location.href);
     return;
   }
