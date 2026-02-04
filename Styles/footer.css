@@ -7,7 +7,7 @@
   min-height: 500px;
   display: flex;
   align-items: center;
-  background-image: url("../image/mid-century-modern-living-room-interior-design-with-monstera-tree.jpg");
+  background-image: url("../Resources/Images/mid-century-modern-living-room-interior-design-with-monstera-tree.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -159,3 +159,8 @@
     margin-top: 10px;
   }
 }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 7ea424fb0925cf13832aeb61a38f1f9c8cc339f1
