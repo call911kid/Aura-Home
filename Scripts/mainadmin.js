@@ -7,6 +7,14 @@ import {
   updateDoc
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
+import{load, setupEvents} from "./StaticScript.js"
+
+
+
+await load();
+await setupEvents();
+
+
 /* ================= ELEMENTS ================= */
 const usersDropdown = document.getElementById("usersDropdown");
 const makeAdminBtn = document.getElementById("makeAdminBtn");
