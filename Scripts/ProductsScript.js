@@ -13,7 +13,6 @@ const formTitle = document.getElementById("form-title");
 const cancelEditBtn = document.getElementById("cancel-edit");
 
 const firebaseDocIdInput = document.getElementById("firebase-doc-id");
-const customIdInput = document.getElementById("custom-id");
 const productNameInput = document.getElementById("product-name");
 const productCategorySelect = document.getElementById("product-category");
 const productPriceInput = document.getElementById("product-price");
@@ -39,7 +38,7 @@ async function fetchAndRenderProducts() {
 
       productsList.innerHTML += `
                 <tr>
-                    <td><small class="text-muted">${product.Custom_ID || "N/A"}</small></td>
+                    <td><small class="text-muted">${docId.substring(0, 8).toUpperCase()}</small></td>
                     <td><img src="${Array.isArray(product.Image_URLs) ? product.Image_URLs[0] : product.Image_URLs}" alt="${product.Product_Name}" class="product-img-td"></td>
                     <td><strong>${product.Product_Name}</strong></td>
                     <td><span class="badge bg-light text-dark border">${product.Category}</span></td>
@@ -101,7 +100,6 @@ productForm.addEventListener("submit", async (e) => {
 
   const docId = firebaseDocIdInput.value;
   const productData = {
-    Custom_ID: customIdInput.value,
     Product_Name: productNameInput.value,
     Category: productCategorySelect.value,
     Price: Number(productPriceInput.value),
@@ -150,7 +148,6 @@ function editProduct(docId) {
   const product = allProducts.find((p) => p.docId === docId);
   if (product) {
     firebaseDocIdInput.value = docId;
-    customIdInput.value = product.Custom_ID || "";
     productNameInput.value = product.Product_Name || "";
     productCategorySelect.value = product.Category || "";
     productPriceInput.value = product.Price || "";
