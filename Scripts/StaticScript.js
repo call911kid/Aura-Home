@@ -7,7 +7,10 @@ export async function load() {
     const footerHtml=await footer.text();
     
     document.getElementById("navbar").innerHTML = html;
-    document.getElementById("footer").innerHTML=footerHtml;
+    let f=document.getElementById("footer");
+    if(f){
+        f.innerHTML=footerHtml;
+    }
 
 }
 

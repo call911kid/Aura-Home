@@ -35,58 +35,11 @@ body {
     padding: 0;
 }
 
-.sidebar {
-    width: 240px;
-    height: 100vh;
-    background: #fff;
-    border-right: 1px solid #eee;
-    padding: 20px;
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 1000;
-}
 
-.sidebar .logo {
-    font-family: "Playfair Display", serif;
-    color: var(--main-color);
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 22px;
-}
 
-.sidebar ul {
-    padding-left: 0;
-    list-style: none;
-}
 
-.sidebar ul li {
-    margin-bottom: 12px;
-}
 
-.sidebar ul li a {
-    text-decoration: none;
-    color: var(--text-dark);
-    padding: 10px 12px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border-radius: 8px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
 
-.sidebar ul li a.active,
-.sidebar ul li a:hover {
-    background: var(--accent-color);
-    color: var(--main-color);
-}
-
-.main-content {
-    margin-left: 240px;
-    padding: 30px;
-    min-height: 100vh;
-}
 
 .welcome-text {
     font-family: "Playfair Display", serif;

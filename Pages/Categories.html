@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-      crossorigin="anonymous"
-    />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Aura Home</title>
+    <link rel="icon" type="image/x-icon" href="../Resources/Images/favicon_io/favicon-96x96.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
     <link rel="stylesheet" href="../Styles/CategoriesStyle.css">
-    <link rel="stylesheet" href="../Styles/style.css">
+    <link rel="stylesheet" href="../Styles/Dashboard.css">
+    <link rel="stylesheet" href="../Styles/Styles.css">
+    
 </head>
+
 <body>
-   <div class="d-flex">
+    <div id="navbar">
+
+    </div>
+
+
+    <div class="d-flex">
         <aside class="sidebar">
-             <a href="Home.html" style="text-decoration: none;"><h4 class="logo"><i id="sofa-icon" class="fa-solid fa-couch"></i> Aura Home</h4></a>
             <ul class="nav flex-column">
                 <li><a href="Dashboard.html"><i class="fa fa-home"></i> Dashboard</a></li>
                 <li><a href="admins.html"><i class="fa fa-user-shield"></i> Admins</a></li>
@@ -27,7 +32,7 @@
         </aside>
 
         <main class="main-content flex-grow-1">
-            
+
 
             <div class="content-card mb-4">
                 <h5 class="card-title-custom mb-3" id="category-form-title">Add New Category</h5>
@@ -35,10 +40,12 @@
                     <input type="hidden" id="category-firebase-id">
                     <div class="col-md-8">
                         <label class="form-label">Category Name</label>
-                        <input type="text" class="form-control" id="category-name" required placeholder="e.g. Living Room, Office...">
+                        <input type="text" class="form-control" id="category-name" required
+                            placeholder="e.g. Living Room, Office...">
                     </div>
                     <div class="col-md-4 text-end">
-                        <button type="button" class="btn btn-secondary me-2" id="cancel-category-edit" style="display:none;">Cancel</button>
+                        <button type="button" class="btn btn-secondary me-2" id="cancel-category-edit"
+                            style="display:none;">Cancel</button>
                         <button type="submit" class="btn btn-main" id="category-submit-btn">Add Category</button>
                     </div>
                 </form>
@@ -55,18 +62,26 @@
                             </tr>
                         </thead>
                         <tbody id="categories-list">
-                            <tr><td colspan="2" class="text-center">Loading categories...</td></tr>
+                            <tr>
+                                <td colspan="2" class="text-center">Loading categories...</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </main>
     </div>
-     
 
-<script src="../Scripts/CategoriesScript.js" type="module"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    
+
+
+    <script src="../Scripts/CategoriesScript.js" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/2a6092e1db.js" crossorigin="anonymous"></script>
-  </body>
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>

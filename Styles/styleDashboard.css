@@ -13,20 +13,6 @@ body {
 
 
 
-.sidebar .logo {
-  font-family: "Playfair Display", serif;
-  color: var(--main-color);
-  text-align: center;
-  margin-bottom: 30px;
-  font-size: 22px;
-}
-
-
-
-
-
-
-
 /* Header */
 .header {
   background: var(--card-bg);
@@ -66,47 +52,6 @@ body {
   border: none;
 }
 /*
-/* Sidebar */
-.sidebar {
-  width: 240px;
-  height: 100vh;
-  background: #fff;
-  border-right: 1px solid #eee; 
-  padding: 20px;
-
-  position: fixed;
-  left: 0; 
-  top: 0;
-}
-
-.sidebar .logo {
-  font-family: "Playfair Display", serif;
-  color: var(--main-color);
-  text-align: center;
-  margin-bottom: 30px;
-  font-size: 22px;
-}
-
-.sidebar ul li {
-  margin-bottom: 12px;
-}
-
-.sidebar ul li a {
-  text-decoration: none;
-  color: var(--text-dark);
-  padding: 10px 12px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  border-radius: 8px;
-  font-weight: 500;
-}
-
-.sidebar ul li a.active,
-.sidebar ul li a:hover {
-  background: #eef3f3;
-  color: var(--main-color);
-}
 
 /* Main Content */
 .content {

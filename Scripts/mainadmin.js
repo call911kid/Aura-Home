@@ -13,6 +13,10 @@ import{load, setupEvents} from "./StaticScript.js"
 
 await load();
 await setupEvents();
+var nav=document.getElementById("navbar");
+nav.style.position = "sticky";
+nav.style.top = "0";
+nav.style.zIndex = "2000";
 
 
 /* ================= ELEMENTS ================= */
@@ -32,7 +36,7 @@ async function loadUsers() {
     snapshot.forEach((docSnap) => {
       const user = docSnap.data();
 
-      // ❌ متظهرش المستخدمين المحذوفين
+      
       if (user.role === "deleted") return;
 
       const option = document.createElement("option");
@@ -111,7 +115,7 @@ deleteUserBtn.addEventListener("click", async () => {
       return;
     }
 
-    // ✅ Soft delete
+    
     await updateDoc(doc(db, "users", selectedId), {
       role: "deleted",
       deletedAt: new Date(),
