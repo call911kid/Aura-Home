@@ -88,7 +88,7 @@ export async function loadCategories() {
     const querySnapshot = await getDocs(collection(db, "Category"));
 
     querySnapshot.forEach((doc) => {
-        console.log(doc.id, doc.data());
+        //console.log(doc.id, doc.data());
     });
 
     return querySnapshot;
@@ -197,21 +197,22 @@ export async function forgotPassword(email) {
 export async function createOrder(cartItems, total) {
     const user = auth.currentUser;
     if (!user) return false;
-
+    console.log(cartItems);
     try {
     
     for (const item of cartItems) {
-        const product = await getProductById(item.productId);
+        const product = await getProductById(item.id);
+       // console.log(item.Id);
 
         if (!product) throw "Product not found";
 
         if (product.Stock_Quantity < item.quantity)
-            throw `Not enough stock for ${item.productId}`;
+            throw `Not enough stock for ${item.id}`;
     }
 
     
     for (const item of cartItems) {
-        await updateDoc(doc(db, "Product", item.productId), {
+        await updateDoc(doc(db, "Product", item.id), {
         Stock_Quantity: increment(-item.quantity)
         });
     }

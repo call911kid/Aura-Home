@@ -18,7 +18,7 @@ const searchInput = document.getElementById("searchInput");
 let allOrders = [];
 
 async function loadOrders() {
-  ordersTable.innerHTML = `<tr><td colspan="6" class="text-center py-5"><div class="spinner-border text-primary" role="status"></div><p>Loading orders...</p></td></tr>`;
+  ordersTable.innerHTML = `<tr><td colspan="6" class="text-center py-5"><div class="spinner-border spinner-brand" role="status"></div><p>Loading orders...</p></td></tr>`;
   allOrders = [];
 
   try {
