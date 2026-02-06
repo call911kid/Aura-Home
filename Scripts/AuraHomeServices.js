@@ -212,8 +212,8 @@ export async function createOrder(cartItems, total) {
 
     
     for (const item of cartItems) {
-        await updateDoc(doc(db, "Product", item.id), {
-        Stock_Quantity: increment(-item.quantity)
+            await updateDoc(doc(db, "Product", item.id), {
+            Stock_Quantity: increment(-item.quantity)
         });
     }
 
@@ -252,7 +252,7 @@ export async function returnOrder(orderId) {
 
     
     for (const item of orderData.items) {
-        await updateDoc(doc(db, "Product", item.productId), {
+        await updateDoc(doc(db, "Product", item.id), {
         Stock_Quantity: increment(item.quantity)
         });
     }
