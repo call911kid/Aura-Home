@@ -1,4 +1,3 @@
-
 import {
   createOrder as firebaseCreateOrder,
   getProductById,
@@ -9,42 +8,43 @@ import { auth } from "../Scripts/firebase.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 export async function load() {
-    const res = await fetch("Static.html");
-    const html = await res.text();
+  const res = await fetch("Static.html");
+  const html = await res.text();
 
-    const footer=await fetch("footer.html");
-    const footerHtml=await footer.text();
-    
-    
-    document.getElementById("navbar").innerHTML = html;
-    let f=document.getElementById("footer");
-    if(f){
-        f.innerHTML=footerHtml;
-    }
- setTimeout(() => {
-   if (typeof window.updateCartIconCount === "function")
-     window.updateCartIconCount();
-   if (typeof window.renderCart === "function") window.renderCart();
-   if (typeof window.updateWishlistIconCount === "function")
-     window.updateWishlistIconCount();
-   if (typeof window.renderWishlist === "function") window.renderWishlist();
- }, 100);
+  const footer = await fetch("footer.html");
+  const footerHtml = await footer.text();
+
+  document.getElementById("navbar").innerHTML = html;
+  let f = document.getElementById("footer");
+  if (f) {
+    f.innerHTML = footerHtml;
+  }
+  setTimeout(() => {
+    if (typeof window.updateCartIconCount === "function")
+      window.updateCartIconCount();
+    if (typeof window.renderCart === "function") window.renderCart();
+    if (typeof window.updateWishlistIconCount === "function")
+      window.updateWishlistIconCount();
+    if (typeof window.renderWishlist === "function") window.renderWishlist();
+  }, 100);
 }
 
 export async function setupEvents() {
   const sofaIcon = document.getElementById("sofa-icon");
 
-  sofaIcon.addEventListener("mouseenter", () => {
-    if (sofaIcon.bouncing != true) {
-      sofaIcon.classList.add("fa-bounce");
-      sofaIcon.bouncing = true;
-    }
-  });
+  if (sofaIcon) {
+    sofaIcon.addEventListener("mouseenter", () => {
+      if (sofaIcon.bouncing != true) {
+        sofaIcon.classList.add("fa-bounce");
+        sofaIcon.bouncing = true;
+      }
+    });
 
-  sofaIcon.addEventListener("mouseleave", () => {
-    sofaIcon.classList.remove("fa-bounce");
-    sofaIcon.bouncing = false;
-  });
+    sofaIcon.addEventListener("mouseleave", () => {
+      sofaIcon.classList.remove("fa-bounce");
+      sofaIcon.bouncing = false;
+    });
+  }
 
   document.querySelectorAll(".navbar-icon").forEach((icon) => {
     icon.addEventListener("mouseenter", () => {
@@ -56,15 +56,12 @@ export async function setupEvents() {
     });
   });
 
-  document.getElementById("navbar-brand").addEventListener("click", ()=>{
-    window,location.href="/Pages/Home.html";
-    console.log("dklfjgfdg");
-  });
-
-
-
-
-
+  const navbarBrand = document.getElementById("navbar-brand");
+  if (navbarBrand) {
+    navbarBrand.addEventListener("click", () => {
+      window.location.href = "/Pages/Home.html";
+    });
+  }
 
   const cartKey = "aura_cart";
 
@@ -138,20 +135,24 @@ export async function setupEvents() {
   }
 
   async function addToCartFromPage(btn) {
-    const card = btn.closest(".card");
-    const id = card.getAttribute("data-id");
+    const card = btn.closest(".card") || btn.closest(".main-wrapper");
+    const id = card.getAttribute("data-id") || (btn.closest ? null : btn.id);
+
     const name = card.getAttribute("data-name");
     const price = parseFloat(card.getAttribute("data-price"));
     const img = card.getAttribute("data-img");
 
-    if (!id) return;
+    const productId = id;
+    if (!productId) return;
 
     const originalText = btn.innerHTML;
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+    if (btn.tagName === "BUTTON") {
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+    }
 
     try {
-      const productData = await getProductById(id);
+      const productData = await getProductById(productId);
 
       if (!productData) {
         showCustomPopup("Error", "Product details could not be retrieved.");
@@ -160,7 +161,7 @@ export async function setupEvents() {
 
       const stock = parseInt(productData.Stock_Quantity) || 0;
       let cart = getCart();
-      const existingItemIndex = cart.findIndex((item) => item.id === id);
+      const existingItemIndex = cart.findIndex((item) => item.id === productId);
       const currentQtyInCart =
         existingItemIndex > -1 ? cart[existingItemIndex].quantity : 0;
 
@@ -175,7 +176,14 @@ export async function setupEvents() {
       if (existingItemIndex > -1) {
         cart[existingItemIndex].quantity += 1;
       } else {
-        cart.push({ id, name, price, img, quantity: 1, stock: stock });
+        cart.push({
+          id: productId,
+          name,
+          price,
+          img,
+          quantity: 1,
+          stock: stock,
+        });
       }
 
       saveCart(cart);
@@ -184,8 +192,10 @@ export async function setupEvents() {
       console.error("Cart error:", error);
       showCustomPopup("Error", "Something went wrong. Please try again.");
     } finally {
-      btn.disabled = false;
-      btn.innerHTML = originalText;
+      if (btn.tagName === "BUTTON") {
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+      }
     }
   }
 
@@ -304,9 +314,9 @@ export async function setupEvents() {
       return;
     }
 
-   container.innerHTML = cart
-  .map(
-    (item) => `
+    container.innerHTML = cart
+      .map(
+        (item) => `
       <div class="cart-item d-flex align-items-center">
 
         <!-- Image -->
@@ -353,11 +363,9 @@ export async function setupEvents() {
           </div>
         </div>
       </div>
-    `
-  )
-  .join("");
-
-
+    `,
+      )
+      .join("");
 
     if (totalElement)
       totalElement.innerText =
@@ -433,27 +441,6 @@ export async function setupEvents() {
   window.renderCart = renderCart;
   window.updateCartIconCount = updateCartIconCount;
 
-  /* 
-   ==========================================================================
-   1. Modified Navbar HTML (Add this to your HTML file)
-   ==========================================================================
-   Replace the navbar-right div with this code to show the badges:
-
-    <div class="navbar-right d-flex align-items-center">
-        <div class="position-relative me-3" onclick="toggleWishlist()" style="cursor: pointer;">
-            <lord-icon src="https://cdn.lordicon.com/hsabxdnr.json" trigger="hover" colors="primary:#ffffff" style="height:50px"></lord-icon>
-            <span id="wishlist-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display: none; font-size: 0.7rem; z-index: 10;">0</span>
-        </div>
-
-        <lord-icon src="https://cdn.lordicon.com/spzqjmbt.json" trigger="hover" colors="primary:#ffffff" style="height:50px"></lord-icon>
-
-        <div class="position-relative" onclick="toggleCart()" style="cursor: pointer;">
-            <lord-icon src="https://cdn.lordicon.com/fmsilsqx.json" trigger="hover" state="hover-slide" colors="primary:#ffffff" style="height:50px"></lord-icon>
-            <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display: none; font-size: 0.7rem; z-index: 10;">0</span>
-        </div>
-    </div>
-*/
-
   const wishlistKey = "aura_wishlist";
 
   function getWishlist() {
@@ -478,19 +465,21 @@ export async function setupEvents() {
   }
 
   function addToWishlist(btn) {
-    const card = btn.closest(".card");
+    const card = btn.closest(".card") || btn.closest(".main-wrapper"); 
     const id = card.getAttribute("data-id");
     const name = card.getAttribute("data-name");
     const price = parseFloat(card.getAttribute("data-price"));
     const img = card.getAttribute("data-img");
 
     let wishlist = getWishlist();
-    if (!wishlist.find((item) => item.id === id)) {
+    const existingIndex = wishlist.findIndex((item) => item.id === id);
+
+    if (existingIndex === -1) {
       wishlist.push({ id, name, price, img });
       saveWishlist(wishlist);
-      alert(`${name} added to wishlist! ❤️`);
     } else {
-      alert("Product already in wishlist!");
+      wishlist.splice(existingIndex, 1);
+      saveWishlist(wishlist);
     }
   }
 
@@ -505,7 +494,9 @@ export async function setupEvents() {
 
     const productCard = document.querySelector(`.card[data-id="${id}"]`);
     if (productCard) {
-      const heartIcon = productCard.querySelector(".wishlist-btn-overlay i");
+      const heartIcon =
+        productCard.querySelector(".wishlist-btn-overlay i") ||
+        productCard.querySelector("#wishlist-btn i");
       if (heartIcon) {
         heartIcon.classList.replace("fa-solid", "fa-regular");
       }
@@ -584,4 +575,3 @@ export async function setupEvents() {
   window.removeFromWishlist = removeFromWishlist;
   window.moveToCart = moveToCart;
 }
-
