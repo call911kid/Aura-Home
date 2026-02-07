@@ -67,6 +67,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
+    document.title=`${productData.Product_Name} - Aura Home`;
+
     const product = {
       id: productId,
       name: productData.Product_Name || "Product Name",

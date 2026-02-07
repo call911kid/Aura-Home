@@ -60,6 +60,16 @@ document.getElementById("search-input").addEventListener("keydown", function(eve
 });
 
 
+const buyNowButtons = document.querySelectorAll(".home-buy");
+
+buyNowButtons.forEach(button => {
+    button.addEventListener("click", () => {
+        const id = button.dataset.id;
+        window.location.href = `/Pages/ProductDetails.html?id=${id}`;
+    });
+});
+
+
 
 
 
