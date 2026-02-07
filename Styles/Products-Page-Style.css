@@ -407,3 +407,77 @@ footer {
 .wishlist-btn-overlay i {
     font-size: 1.1rem;
 }
+
+.catergories {
+    height: 300px;                 
+    border-radius: 6px;
+    background: linear-gradient(180deg, #9C6B5E 0%, #C7A79C 100%);
+    overflow: hidden;              
+    display: flex;
+    align-items: center;     
+    margin-bottom: 1rem;
+}
+
+.category{
+    margin:1rem 4rem;
+    align-items: center;
+    
+}
+.category-photo{
+    display: flex;
+    justify-content: center;   
+    align-items: center; 
+    border-radius: 10rem 1rem;
+    transition: border-radius 0.6s ease, transform 0.4s ease;
+
+}
+.category-photo img{
+    object-fit: cover;
+    max-height: 200px;
+    display: block;
+    margin: 1rem;
+}
+.category-photo:hover{
+    border-radius: 1rem 10rem;
+}
+.category-photo img:hover {
+    transform: scale(1.03);
+    border-radius: 10rem 1rem;
+}
+.category-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;   
+    padding: 2rem 3rem;
+    color: white;
+    font-family: 'PlayFair Display';
+}
+.category-text p{
+    font-family: 'Work-Sans';
+}
+
+
+
+.category-text .button-x{
+    width: fit-content;   
+    display: inline-block;
+    padding: 12px 28px;
+}
+
+
+
+.hero-carousel {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+}
+
+.hero-track {
+    display: flex;
+    transition: transform 0.8s ease-in-out;
+}
+
+.hero-slide {
+    min-width: 100%;
+}
+

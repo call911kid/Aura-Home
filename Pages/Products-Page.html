@@ -9,14 +9,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
     <link rel="stylesheet" href="../Styles/Products-Page-Style.css" />
-        <link rel="stylesheet" href="../Styles/Styles.css">
+    <link rel="stylesheet" href="../Styles/Styles.css">
 
     <style>
-        .text-danger{
+        .text-danger {
             color: #025048 !important;
-            
+
         }
-        .text-center{
+
+        .text-center {
             text-align: start !important;
         }
     </style>
@@ -24,14 +25,12 @@
 
 <body>
     <div id="navbar">
-        
+
 
     </div>
+
+
     <div class="container mt-5">
-        <div class="hero-section mb-5 text-center">
-            <h1 class="main-title">All Products</h1>
-            <p class="subtitle">High-quality luxury furniture</p>
-        </div>
 
         <div class="row">
             <div class="col-lg-3">
@@ -98,6 +97,110 @@
             </div>
 
             <div class="col-lg-9">
+
+                <div class="catergories container-fluid">
+
+                    <div class="hero-carousel">
+
+                        <div class="hero-track">
+
+                            <section class="hero-slide">
+                                <div class="category row">
+
+                                    <div class="category-text col-9">
+                                        <h2>Elegant Chairs</h2>
+                                        <p>
+                                            Discover thoughtfully crafted chairs designed for everyday comfort, refined
+                                            simplicity, and lasting beauty. Each piece blends soft textures, balanced
+                                            proportions, and timeless character to elevate calm, modern living spaces
+                                            with
+                                            effortless elegance.
+                                        </p>
+                                        <a href="#" class="button-x">Explore Collection</a>
+                                    </div>
+
+                                    <div class="category-photo col-3"
+                                        style="background-color: #E6D7CC;">
+                                        <img src="../Resources/Images/catoegory-chair.png" alt="">
+                                    </div>
+
+                                </div>
+                            </section>
+
+
+                            <section class="hero-slide">
+                                <div class="category row">
+
+
+                                    <div class="category-text col-9">
+                                        <h2>Timeless Sofas</h2>
+                                        <p>
+                                            Experience sofas crafted for deep comfort, quiet elegance, and everyday
+                                            living. Soft
+                                            upholstery, balanced forms, and timeless materials create inviting spaces
+                                            designed
+                                            for relaxation, connection, and beautifully refined moments at home.
+                                        </p>
+                                        <a href="#" class="button-x">Explore Collection</a>
+                                    </div>
+
+                                    <div class="category-photo col-3" style="background-color: #8C5A4A;">
+                                        <img src="../Resources/Images/catoegory-sofa.png" alt="">
+                                    </div>
+                                </div>
+                            </section>
+
+
+                            <section class="hero-slide">
+                                <div class="category row">
+
+                                    <div class="category-text col-9">
+                                        <h2>Restful Beds</h2>
+                                        <p>
+                                            Quiet forms, soft finishes, and thoughtful construction come together to
+                                            support
+                                            deep rest and effortless comfort, bringing harmony, warmth, and understated
+                                            beauty
+                                            to modern bedrooms designed for calm everyday living.
+                                        </p>
+                                        <a href="#" class="button-x">Explore Collection</a>
+                                    </div>
+
+                                    <div class="category-photo col-3"
+                                        style="background-color: #5A646B;">
+                                        <img src="../Resources/Images/catoegory-bed.png" alt="">
+                                    </div>
+
+                                </div>
+                            </section>
+
+
+                            <section class="hero-slide">
+                                <div class="category row">
+
+
+                                    <div class="category-text col-9">
+                                        <h2>Ambient Lighting</h2>
+                                        <p>
+                                            Soft illumination and refined forms come together to shape warm, inviting
+                                            atmospheres. Thoughtfully crafted lighting enhances mood, highlights
+                                            texture, and
+                                            brings gentle depth to modern interiors designed for comfort and quiet
+                                            beauty.
+                                        </p>
+                                        <a href="#" class="button-x">Explore Collection</a>
+                                    </div>
+                                    <div class="category-photo col-3" style="background-color: #2F2A27;">
+                                        <img src="../Resources/Images/catoegory-lamp.png" alt="">
+                                    </div>
+                                </div>
+                            </section>
+
+                        </div>
+
+                    </div>
+                </div>
+
                 <div class="mb-4 d-flex justify-content-between align-items-center">
                     <div>
                         <h2 class="h4 fw-bold">Furniture Collection</h2>
@@ -108,18 +211,61 @@
                 </div>
             </div>
         </div>
-    </div>
-    
-<div id="footer">
+
+
+        <script>
+            var nav = document.getElementById("navbar");
+            nav.style.position = "sticky";
+            nav.style.top = "0";
+            nav.style.zIndex = "2000";
+
+
+            const track = document.querySelector(".hero-track");
+            const slides = document.querySelectorAll(".hero-slide");
+            const carousel = document.querySelector(".hero-carousel");
+
+            let index = 0;
+            const delay = 2000;
+            let interval;
+
+            function nextSlide() {
+                index = (index + 1) % slides.length;
+                track.style.transform = `translateX(-${index * 100}%)`;
+            }
+
+            function startAutoSlide() {
+                interval = setInterval(nextSlide, delay);
+            }
+
+            function stopAutoSlide() {
+                clearInterval(interval);
+            }
+
+
+            startAutoSlide();
+
+
+            carousel.addEventListener("mouseenter", stopAutoSlide);
+
+
+            carousel.addEventListener("mouseleave", startAutoSlide);
+        </script>
+
 
     </div>
-        <script src="https://cdn.lordicon.com/lordicon.js"></script>
-<script type="module" src="../Scripts/Cartscript.js"></script>
-<script type="module" src="../Scripts/wishlist.js"></script>
+
+    <div id="footer">
+
+    </div>
+
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+    <script type="module" src="../Scripts/Cartscript.js"></script>
+    <script type="module" src="../Scripts/wishlist.js"></script>
     <script type="module" src="../Scripts/StaticScript.js"></script>
     <script src="../Scripts/ProductPageScript.js" type="module"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/2a6092e1db.js" crossorigin="anonymous"></script>
+
 </body>
 
 </html>
