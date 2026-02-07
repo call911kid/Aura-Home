@@ -59,7 +59,12 @@ export async function setupEvents() {
   document.getElementById("navbar-brand").addEventListener("click", ()=>{
     window,location.href="/Pages/Home.html";
     console.log("dklfjgfdg");
-  })
+  });
+
+
+
+
+
 
   const cartKey = "aura_cart";
 
@@ -113,7 +118,8 @@ export async function setupEvents() {
   }
 
   function getCart() {
-    return JSON.parse(localStorage.getItem(cartKey)) || [];
+    const cart = JSON.parse(localStorage.getItem(cartKey)) || [];
+    return [...cart].reverse();
   }
 
   function saveCart(cart) {
@@ -298,28 +304,60 @@ export async function setupEvents() {
       return;
     }
 
-    container.innerHTML = cart
-      .map(
-        (item) => `
-        <div class="d-flex align-items-center border-bottom py-3">
-            <img src="${item.img}" alt="${item.name}" style="width: 70px; height: 70px; object-fit: cover; border-radius: 0;">
-            <div class="ms-3 flex-grow-1">
-                <h6 class="mb-1 fw-bold" style="font-family: 'Poppins'; font-size: 0.9rem; color: #025048;">${item.name}</h6>
-                <div class="text-muted" style="font-size: 0.8rem;">$${item.price} x ${item.quantity}</div>
-                <div class="d-flex align-items-center mt-2">
-                    <button class="btn btn-sm border-0 p-0" onclick="updateQuantity('${item.id}', -1)"><i class="fas fa-minus-circle text-muted"></i></button>
-                    <span class="mx-2 fw-bold" style="font-size: 0.85rem;">${item.quantity}</span>
-                    <button class="btn btn-sm border-0 p-0" onclick="updateQuantity('${item.id}', 1)"><i class="fas fa-plus-circle text-muted"></i></button>
-                </div>
+   container.innerHTML = cart
+  .map(
+    (item) => `
+      <div class="cart-item d-flex align-items-center">
+
+        <!-- Image -->
+        <img 
+          src="${item.img}" 
+          alt="${item.name}" 
+          class="cart-item-img"
+        >
+
+        <!-- Details -->
+        <div class="cart-item-details ms-3 flex-grow-1">
+
+          <h6 class="cart-item-title mb-1">
+            ${item.name}
+          </h6>
+
+          <div class="cart-item-meta text-muted">
+            $${item.price} × ${item.quantity}
+          </div>
+
+          <!-- ONE LINE: qty + delete + price -->
+          <div class="cart-item-controls mt-2">
+
+            <div class="cart-qty">
+              <button class="qty-btn" onclick="updateQuantity('${item.id}', -1)">
+                −
+              </button>
+
+              <span class="qty-value">
+                ${item.quantity}
+              </span>
+
+              <button class="qty-btn" onclick="updateQuantity('${item.id}', 1)">
+                +
+              </button>
             </div>
-            <div class="text-end ms-2">
-                <div class="fw-bold mb-2" style="color: #025048;">$${(item.price * item.quantity).toFixed(2)}</div>
-                <button class="btn btn-sm text-danger p-0" onclick="removeFromCart('${item.id}')"><i class="fa-solid fa-trash-can"></i></button>
+
+            
+
+            <div class="cart-price">
+              $${(item.price * item.quantity).toFixed(2)}
             </div>
+
+          </div>
         </div>
-    `,
-      )
-      .join("");
+      </div>
+    `
+  )
+  .join("");
+
+
 
     if (totalElement)
       totalElement.innerText =

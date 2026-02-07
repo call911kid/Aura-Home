@@ -29,7 +29,7 @@
                         colors="primary:#ffffff">
                     </lord-icon>
                 </div>
-                
+
                 <div class="position-relative ms-3" onclick="toggleWishlist()" style="cursor: pointer;">
                     <lord-icon src="https://cdn.lordicon.com/hsabxdnr.json" trigger="hover" colors="primary:#ffffff"
                         style="height:50px"></lord-icon>
@@ -67,8 +67,7 @@
 <div class="offcanvas offcanvas-end aura-sidebar-premium" tabindex="-1" id="cartSidebar"
     aria-labelledby="cartSidebarLabel">
     <div class="offcanvas-header border-bottom">
-        <h5 class="offcanvas-title text-white" id="cartSidebarLabel">My Cart <i
-                class="fa-solid fa-bag-shopping text-success ms-2"></i></h5>
+        <h5 class="offcanvas-title text-white" id="cartSidebarLabel">Cart</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
 
@@ -76,16 +75,17 @@
         <div id="cart-items-container" class="flex-grow-1 overflow-auto">
         </div>
 
-        <div class="p-3 border-top">
-            <div class="d-flex justify-content-between mb-2">
-                <span> Total:</span>
-                <span id="cart-total-price" class="fw-bold">$0.00</span>
+        <div class="cart-footer">
+            <div class="cart-total-row">
+                <span class="cart-total-label">Total</span>
+                <span id="cart-total-price" class="cart-total-price">$0.00</span>
             </div>
-            <button class="btn btn-outline-custom w-100 py-3 checkout-btn-main" onclick="handleCheckout()">
+
+            <button class="checkout-btn-main" onclick="handleCheckout()">
                 Checkout
             </button>
-            <p class="text-center text-muted mt-2" style="font-size: 0.75rem;">
         </div>
+
     </div>
 </div>
 
