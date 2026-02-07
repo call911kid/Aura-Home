@@ -118,9 +118,7 @@ function attachStatusEvents() {
         link.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Updating...`;
         link.classList.add("disabled");
 
-        await updateDoc(doc(db, "orders", orderId), {
-          status: newStatus,
-        });
+        await updateOrderStatus(orderId, newStatus);
 
         loadOrders();
       } catch (err) {
@@ -151,6 +149,7 @@ window.addEventListener("DOMContentLoaded", loadOrders);
 
 
 import{load, setupEvents} from "./StaticScript.js"
+import { updateOrderStatus } from "./AuraHomeServices.js";
 
 
 
