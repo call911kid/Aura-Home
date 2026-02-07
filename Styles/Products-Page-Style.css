@@ -427,7 +427,7 @@ footer {
     display: flex;
     justify-content: center;   
     align-items: center; 
-    border-radius: 10rem 1rem;
+    border-radius: 5rem 1rem;
     transition: border-radius 0.6s ease, transform 0.4s ease;
 
 }
@@ -438,11 +438,11 @@ footer {
     margin: 1rem;
 }
 .category-photo:hover{
-    border-radius: 1rem 10rem;
+    border-radius: 1rem 5rem;
 }
 .category-photo img:hover {
     transform: scale(1.03);
-    border-radius: 10rem 1rem;
+    border-radius: 5rem 1rem;
 }
 .category-text {
     display: flex;

@@ -306,6 +306,7 @@ await load();
 await setupEvents();
 import { loadProducts, loadCategories } from "../Scripts/AuraHomeServices.js";
 
+
 const productsRow = document.getElementById("products-row");
 const priceRange = document.getElementById("price-range");
 const priceValue = document.getElementById("price-value");
