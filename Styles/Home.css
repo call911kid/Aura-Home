@@ -393,9 +393,12 @@
 
 
 .prds {
-
     margin: 3rem auto;
-
+}
+.prds h1{
+    text-align: center;
+    margin-bottom: 5rem;
+    text-transform: uppercase;
 }
 
 .card {
@@ -418,13 +421,16 @@
 .catergories {
     background-color: #9C6B5E;
     padding: 3rem 5rem;
-}
-
-.catergories {
     background: linear-gradient(180deg, #9C6B5E 0%, #C7A79C 100%);
+    
 }
 
-
+.catergories > h1 {
+    width: 100%;
+    text-align: center;
+    display: block;
+   color: #2F2A27;
+}
 
 
 .category{
@@ -446,6 +452,7 @@
     max-height: 280px;
     display: block;
     margin: 1rem;
+    transition: border-radius 0.6s ease, transform 0.4s ease;
 }
 .category:nth-child(odd) .category-photo img {
     border-radius: 10rem 1rem;
