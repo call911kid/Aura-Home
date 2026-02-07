@@ -384,16 +384,28 @@ export async function updateOrderStatus(orderId, newStatus) {
     if (!user) return false;
 
     const userDoc = await getDoc(doc(db, "users", user.uid));
-
     if (userDoc.data().role !== "admin") {
         console.error("Only admin can update orders");
         return false;
     }
 
     try {
-        await updateDoc(doc(db, "orders", orderId), {
-            status: newStatus
-        });
+        const orderRef = doc(db, "orders", orderId);
+        const orderSnap = await getDoc(orderRef);
+
+        if (!orderSnap.exists()) throw "Order not found";
+
+        const orderData = orderSnap.data();
+
+        if (newStatus === "canceled" && orderData.status !== "canceled") {
+            for (const item of orderData.items) {
+                await updateDoc(doc(db, "Product", item.id), {
+                    Stock_Quantity: increment(item.quantity)
+                });
+            }
+        }
+
+        await updateDoc(orderRef, { status: newStatus });
 
         console.log("Order status updated:", newStatus);
         return true;
@@ -403,6 +415,7 @@ export async function updateOrderStatus(orderId, newStatus) {
         return false;
     }
 }
+
 
 
 
