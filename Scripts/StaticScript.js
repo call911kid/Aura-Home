@@ -29,6 +29,7 @@ export async function load() {
      window.updateWishlistIconCount();
    if (typeof window.renderWishlist === "function") window.renderWishlist();
  }, 100);
+
 }
 
 export async function setupEvents() {
@@ -61,6 +62,25 @@ export async function setupEvents() {
     console.log("dklfjgfdg");
   });
 
+
+
+  const scrollBtn = document.getElementById("scrollTopBtn");
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 200) {
+    scrollBtn.style.display = "block";
+  } else {
+    scrollBtn.style.display = "none";
+  }
+});
+
+
+scrollBtn.addEventListener("click", () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+});
 
 
 
