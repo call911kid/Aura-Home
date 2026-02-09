@@ -456,7 +456,7 @@
     max-height: 280px;
     display: block;
     margin: 1rem;
-    transition: border-radius 0.6s ease, transform 0.4s ease;
+    transition: transform 0.4s ease-in-out;
 }
 .category:nth-child(even) .category-photo {
     border-radius: 1rem 10rem;
@@ -467,7 +467,7 @@
 
 
 .category-photo img:hover {
-    transform: scale(1.03);
+    transform: scale(1.1);  
 }
 .category-text {
     display: flex;
