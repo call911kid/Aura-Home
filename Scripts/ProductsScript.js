@@ -1,16 +1,19 @@
-import { load, setupEvents } from "./StaticScript.js"
 
-
+import { load, setupEvents } from "./StaticScript.js";
 
 await load();
 await setupEvents();
 
-var nav=document.getElementById("navbar");
+if (!document.getElementById("swal-style")) {
+  const script = document.createElement("script");
+  script.src = "https://cdn.jsdelivr.net/npm/sweetalert2@11";
+  document.head.appendChild(script);
+}
+
+var nav = document.getElementById("navbar");
 nav.style.position = "sticky";
 nav.style.top = "0";
 nav.style.zIndex = "2000";
-
-
 
 import {
   loadProducts,
@@ -36,6 +39,100 @@ const productImageInput = document.getElementById("product-image");
 const productDescInput = document.getElementById("product-desc");
 
 let allProducts = [];
+
+function showToast(message, icon = "error") {
+  Swal.fire({
+    title: "Validation Error",
+    text: message,
+    icon: icon,
+    confirmButtonColor: "#3085d6",
+    toast: false,
+    position: "center",
+    timer: 4000,
+    timerProgressBar: true,
+  });
+}
+
+function validateForm() {
+  const name = productNameInput.value.trim();
+  const category = productCategorySelect.value;
+  const price = parseFloat(productPriceInput.value);
+  const oldPrice = parseFloat(oldPriceInput.value);
+  const stock = parseInt(productStockInput.value);
+  const imageUrl = productImageInput.value.trim();
+  const desc = productDescInput.value.trim();
+
+  const hasLetters = /[\p{L}]/u;
+
+  if (name.length < 3) {
+    showToast(
+      "The product name is too short; it must contain at least 3 letters.",
+    );
+    productNameInput.focus();
+    return false;
+  }
+
+  if (!hasLetters.test(name)) {
+    showToast(
+      "The product name cannot consist of numbers only; it must contain letters.",
+    );
+    productNameInput.focus();
+    return false;
+  }
+
+  if (!category) {
+    showToast("Please select a product category.");
+    productCategorySelect.focus();
+    return false;
+  }
+
+  if (isNaN(price) || price <= 0) {
+    showToast("Please enter a valid price greater than zero.");
+    productPriceInput.focus();
+    return false;
+  }
+
+  if (!isNaN(oldPrice) && oldPrice > 0) {
+    if (oldPrice <= price) {
+      showToast(
+        "The old price (before the discount) must be higher than the current price.",
+      );
+      oldPriceInput.focus();
+      return false;
+    }
+  }
+
+  if (isNaN(stock) || stock < 0) {
+    showToast("The quantity of inventory cannot be negative.");
+    productStockInput.focus();
+    return false;
+  }
+
+  const urlPattern = /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp|svg))$/i;
+  if (!imageUrl || !urlPattern.test(imageUrl)) {
+    showToast("Please enter a valid image URL (ending in jpg, png, etc.).");
+    productImageInput.focus();
+    return false;
+  }
+
+  if (desc.length < 10) {
+    showToast(
+      "Please write a detailed product description (at least 10 characters).",
+    );
+    productDescInput.focus();
+    return false;
+  }
+
+  if (!hasLetters.test(desc)) {
+    showToast(
+      "The description cannot consist of numbers only; it must contain letters.",
+    );
+    productDescInput.focus();
+    return false;
+  }
+
+  return true;
+}
 
 async function fetchAndRenderProducts() {
   productsList.innerHTML =
@@ -112,15 +209,19 @@ async function fetchAndRenderCategories() {
 productForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
+  if (!validateForm()) {
+    return;
+  }
+
   const docId = firebaseDocIdInput.value;
   const productData = {
-    Product_Name: productNameInput.value,
+    Product_Name: productNameInput.value.trim(),
     Category: productCategorySelect.value,
     Price: Number(productPriceInput.value),
     Discount_Price: Number(oldPriceInput.value) || null,
     Stock_Quantity: Number(productStockInput.value),
-    Image_URLs: [productImageInput.value],
-    Description: productDescInput.value,
+    Image_URLs: [productImageInput.value.trim()],
+    Description: productDescInput.value.trim(),
   };
 
   submitBtn.disabled = true;
@@ -129,17 +230,19 @@ productForm.addEventListener("submit", async (e) => {
   try {
     if (docId) {
       const success = await updateProduct(docId, productData);
-      if (success) alert("Product updated successfully!");
+      if (success)
+        Swal.fire("Success", "Product updated successfully!", "success");
     } else {
       const success = await createProduct(productData);
-      if (success) alert("Product added successfully!");
+      if (success)
+        Swal.fire("Success", "Product added successfully!", "success");
     }
 
     resetForm();
     await fetchAndRenderProducts();
   } catch (error) {
     console.error("Operation failed:", error);
-    alert("An error occurred. Please try again.");
+    Swal.fire("Error", "An error occurred. Please try again.", "error");
   } finally {
     submitBtn.disabled = false;
     submitBtn.innerText = docId ? "Update Product" : "Add Product";
@@ -147,13 +250,23 @@ productForm.addEventListener("submit", async (e) => {
 });
 
 async function deleteProduct(docId) {
-  if (confirm("Are you sure you want to delete this product?")) {
+  const result = await Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Yes, delete it!",
+  });
+
+  if (result.isConfirmed) {
     const success = await firebaseDeleteProduct(docId);
     if (success) {
-      alert("Product deleted!");
+      Swal.fire("Deleted!", "Product has been deleted.", "success");
       await fetchAndRenderProducts();
     } else {
-      alert("Failed to delete product.");
+      Swal.fire("Failed!", "Failed to delete product.", "error");
     }
   }
 }
@@ -191,6 +304,3 @@ cancelEditBtn.addEventListener("click", resetForm);
 
 fetchAndRenderProducts();
 fetchAndRenderCategories();
-
-
-
