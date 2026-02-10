@@ -1,5 +1,7 @@
 
         const contactForm = document.getElementById('jsContactForm');
+        const successMessage = document.getElementById('successMessage'); // الحصول على عنصر الرسالة
+
 
         if (contactForm) {
             contactForm.addEventListener('submit', async (event) => {
@@ -26,12 +28,20 @@
                 try {
                     submitBtn.innerHTML = `<span class="spinner-border spinner-border-sm"></span> Sending...`;
                     submitBtn.disabled = true;
-
                     console.log("Success! Data collected:", formData);
-                    alert('Thank you! Your message has been sent successfully.');
+
+
+                successMessage.classList.add('show');
+
 
                     contactForm.reset();
                     contactForm.classList.remove('was-validated');
+                         setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 5000);
+
+
+                    
                 } catch (error) {
                     alert('Error sending message.');
                 } finally {
