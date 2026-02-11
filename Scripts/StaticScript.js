@@ -325,6 +325,8 @@ const scrollBtn = document.getElementById("scrollTopBtn");
         btn.innerHTML = "Try Again";
       }
     }
+    btn.disabled = false;
+    btn.innerHTML = "Checkout";
   }
 
   function renderCart() {
