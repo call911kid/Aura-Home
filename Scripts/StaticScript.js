@@ -419,7 +419,7 @@ const scrollBtn = document.getElementById("scrollTopBtn");
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
           <li><a class="dropdown-item" href="myOrder.html"><i class="fas fa-box me-2"></i>My Orders</a></li>
           <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item text-danger" href="#" id="logoutBtn"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+          <li><a class="dropdown-item text-danger" href="login.html" id="logoutBtn"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
         </ul>
       </div>
     `;
@@ -427,9 +427,9 @@ const scrollBtn = document.getElementById("scrollTopBtn");
       const logoutBtn = document.getElementById("logoutBtn");
       if (logoutBtn) {
         logoutBtn.onclick = async (e) => {
-          e.preventDefault();
+          //e.preventDefault();
           const success = await logoutUser();
-          if (success) window.location.reload();
+          if (success) window.location.href = "/login.html";
         };
       }
     } else {

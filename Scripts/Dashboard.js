@@ -1,8 +1,14 @@
-
-
+import { getMyRole } from "./AuraHomeServices.js";
+const userRole = await getMyRole();
+if (userRole !== "admin") {
+  window.location.href = "login.html";
+}
 
 import { db } from "./firebase.js";
-import { collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import {
+  collection,
+  getDocs,
+} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 /* ================= ELEMENTS ================= */
 const totalOrdersEl = document.getElementById("totalOrders");
@@ -14,10 +20,12 @@ const orderStatusChart = new Chart(document.getElementById("orderStatus"), {
   type: "doughnut",
   data: {
     labels: ["Completed", "Pending", "Canceled"],
-    datasets: [{
-      data: [0, 0, 0],
-      backgroundColor: ["#22c55e", "#facc15", "#ef4444"],
-    }],
+    datasets: [
+      {
+        data: [0, 0, 0],
+        backgroundColor: ["#22c55e", "#facc15", "#ef4444"],
+      },
+    ],
   },
   options: { cutout: "70%" },
 });
@@ -26,17 +34,29 @@ const ordersByMonthChart = new Chart(document.getElementById("ordersByMonth"), {
   type: "bar",
   data: {
     labels: [
-      "January","February","March","April","May","June",
-      "July","August","September","October","November","December"
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
     ],
-    datasets: [{
-      label: "Orders",
-      data: new Array(12).fill(0),
-      backgroundColor: "#22c55e",
-    }],
+    datasets: [
+      {
+        label: "Orders",
+        data: new Array(12).fill(0),
+        backgroundColor: "#22c55e",
+      },
+    ],
   },
   options: {
-    scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
+    scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } },
   },
 });
 
@@ -81,8 +101,8 @@ async function loadDashboardData() {
     });
 
     /* ==== UPDATE COUNTS ==== */
-    totalOrdersEl.textContent = ordersData.length;          // كل الأوردرز
-    totalCustomersEl.textContent = customersSet.size;       // العملاء اللي عملوا أوردر
+    totalOrdersEl.textContent = ordersData.length; // كل الأوردرز
+    totalCustomersEl.textContent = customersSet.size; // العملاء اللي عملوا أوردر
     ordersThisMonthEl.textContent = ordersThisMonth;
 
     /* ==== UPDATE CHARTS ==== */
@@ -91,7 +111,6 @@ async function loadDashboardData() {
 
     ordersByMonthChart.data.datasets[0].data = ordersPerMonth;
     ordersByMonthChart.update();
-
   } catch (error) {
     console.error("Dashboard error:", error);
   }
@@ -109,16 +128,11 @@ if (logoutBtn) {
 /* ================= INIT ================= */
 window.addEventListener("DOMContentLoaded", loadDashboardData);
 
-
-
-import{load, setupEvents} from "./StaticScript.js"
-
-
+import { load, setupEvents } from "./StaticScript.js";
 
 await load();
 await setupEvents();
-var nav=document.getElementById("navbar");
+var nav = document.getElementById("navbar");
 nav.style.position = "sticky";
 nav.style.top = "0";
 nav.style.zIndex = "2000";
-

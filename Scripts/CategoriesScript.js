@@ -1,3 +1,9 @@
+import { getMyRole } from "./AuraHomeServices.js";
+
+const userRole = await getMyRole();
+if (userRole !== "admin") {
+  window.location.href = "login.html";
+}
 import { load, setupEvents } from "./StaticScript.js";
 
 await load();
@@ -33,11 +39,9 @@ function validateCategoryName(name, currentDocId = null) {
     return "Category name cannot be empty.";
   }
 
- 
   if (trimmedName.length < 3) {
     return "Category name must be at least 3 characters long.";
   }
-
 
   const isDuplicate = allCategories.some(
     (cat) =>
@@ -54,7 +58,7 @@ function validateCategoryName(name, currentDocId = null) {
     return "Category name contains invalid characters (use only letters, numbers, spaces, and &).";
   }
 
-  return null; 
+  return null;
 }
 
 async function fetchAndRenderCategories() {

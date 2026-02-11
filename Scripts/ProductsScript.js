@@ -1,8 +1,16 @@
 
+import { getMyRole } from "./AuraHomeServices.js";
+
+const userRole = await getMyRole();
+if (userRole !== "admin") {
+  window.location.href = "login.html";
+}
 import { load, setupEvents } from "./StaticScript.js";
 
 await load();
 await setupEvents();
+
+
 
 if (!document.getElementById("swal-style")) {
   const script = document.createElement("script");

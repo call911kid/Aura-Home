@@ -1,5 +1,10 @@
 
+import { getMyRole } from "./AuraHomeServices.js";
 
+const userRole = await getMyRole();
+if (userRole !== "admin") {
+  window.location.href = "login.html";
+}
 
 
 
@@ -11,6 +16,8 @@ import {
   getDoc,
   updateDoc,
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+
 
 const ordersTable = document.getElementById("ordersTable");
 const searchInput = document.getElementById("searchInput");

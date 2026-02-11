@@ -1,23 +1,27 @@
+import { getMyRole } from "./AuraHomeServices.js";
+
+const userRole = await getMyRole();
+if (userRole !== "admin") {
+  window.location.href = "login.html";
+}
+
 import { db, auth } from "./firebase.js";
 import {
   collection,
   doc,
   getDocs,
   getDoc,
-  updateDoc
+  updateDoc,
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-import{load, setupEvents} from "./StaticScript.js"
-
-
+import { load, setupEvents } from "./StaticScript.js";
 
 await load();
 await setupEvents();
-var nav=document.getElementById("navbar");
+var nav = document.getElementById("navbar");
 nav.style.position = "sticky";
 nav.style.top = "0";
 nav.style.zIndex = "2000";
-
 
 /* ================= ELEMENTS ================= */
 const usersDropdown = document.getElementById("usersDropdown");
@@ -31,13 +35,11 @@ async function loadUsers() {
     const snapshot = await getDocs(collection(db, "users"));
     //console.log(snapshot);
 
-    usersDropdown.innerHTML =
-      "<option value=''> -- Select a user -- </option>";
+    usersDropdown.innerHTML = "<option value=''> -- Select a user -- </option>";
 
     snapshot.forEach((docSnap) => {
       const user = docSnap.data();
 
-      
       if (user.role === "deleted") return;
 
       const option = document.createElement("option");
@@ -67,9 +69,7 @@ makeAdminBtn.addEventListener("click", async () => {
     const currentUser = auth.currentUser;
     if (!currentUser) throw new Error("Not logged in");
 
-    const currentUserDoc = await getDoc(
-      doc(db, "users", currentUser.uid)
-    );
+    const currentUserDoc = await getDoc(doc(db, "users", currentUser.uid));
 
     if (currentUserDoc.data().role !== "admin") {
       actionMsg.textContent = "Only admins can do this!";
@@ -106,9 +106,7 @@ deleteUserBtn.addEventListener("click", async () => {
     const currentUser = auth.currentUser;
     if (!currentUser) throw new Error("Not logged in");
 
-    const currentUserDoc = await getDoc(
-      doc(db, "users", currentUser.uid)
-    );
+    const currentUserDoc = await getDoc(doc(db, "users", currentUser.uid));
 
     if (currentUserDoc.data().role !== "admin") {
       actionMsg.textContent = "Only admins can delete users!";
@@ -116,7 +114,6 @@ deleteUserBtn.addEventListener("click", async () => {
       return;
     }
 
-    
     await updateDoc(doc(db, "users", selectedId), {
       role: "deleted",
       deletedAt: new Date(),

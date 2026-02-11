@@ -10,11 +10,12 @@ body {
   margin: 0;
 
   /* Overlay + Image */
-  background:
+ 
    
-    url("../Resources/Images/imglogi.png") center / cover
-      no-repeat;
+background: linear-gradient(135deg, #0b3d37, #0f5c53, #1b7a6f);
+  
 
+      
   display: flex;
   align-items: center;
   justify-content: center;
