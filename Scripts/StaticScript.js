@@ -75,21 +75,20 @@ export async function setupEvents() {
 const scrollBtn = document.getElementById("scrollTopBtn");
 //console.log(scrollBtn);
 
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 200) {
-    scrollBtn.style.display = "block";
-  } else {
-    scrollBtn.style.display = "none";
-  }
-});
-
-
-scrollBtn.addEventListener("click", () => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 200) {
+      scrollBtn.style.display = "block";
+    } else {
+      scrollBtn.style.display = "none";
+    }
   });
-});
+
+  scrollBtn.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
 
   const cartKey = "aura_cart";
 
@@ -299,7 +298,7 @@ scrollBtn.addEventListener("click", () => {
           //   });
           // }
         }
-decrease
+
         localStorage.removeItem(cartKey);
         updateCartIconCount();
         renderCart();
@@ -345,52 +344,22 @@ decrease
     container.innerHTML = cart
       .map(
         (item) => `
-      <div class="cart-item d-flex align-items-center">
-
-        <!-- Image -->
-        <img 
-          src="${item.img}" 
-          alt="${item.name}" 
-          class="cart-item-img"
-        >
-
-        <!-- Details -->
-        <div class="cart-item-details ms-3 flex-grow-1">
-
-          <h6 class="cart-item-title mb-1">
-            ${item.name}
-          </h6>
-
-          <div class="cart-item-meta text-muted">
-            $${item.price} × ${item.quantity}
-          </div>
-
-          <!-- ONE LINE: qty + delete + price -->
-          <div class="cart-item-controls mt-2">
-
-            <div class="cart-qty">
-              <button class="qty-btn" onclick="updateQuantity('${item.id}', -1)">
-                −
-              </button>
-
-              <span class="qty-value">
-                ${item.quantity}
-              </span>
-
-              <button class="qty-btn" onclick="updateQuantity('${item.id}', 1)">
-                +
-              </button>
+        <div class="d-flex align-items-center border-bottom py-3">
+            <img src="${item.img}" alt="${item.name}" style="width: 70px; height: 70px; object-fit: cover; border-radius: 0;">
+            <div class="ms-3 flex-grow-1">
+                <h6 class="mb-1 fw-bold" style="font-family: 'Poppins'; font-size: 0.9rem; color: #025048;">${item.name}</h6>
+                <div class="text-muted" style="font-size: 0.8rem;">$${item.price} x ${item.quantity}</div>
+                <div class="d-flex align-items-center mt-2">
+                    <button class="btn btn-sm border-0 p-0" onclick="updateQuantity('${item.id}', -1)"><i class="fas fa-minus-circle text-muted"></i></button>
+                    <span class="mx-2 fw-bold" style="font-size: 0.85rem;">${item.quantity}</span>
+                    <button class="btn btn-sm border-0 p-0" onclick="updateQuantity('${item.id}', 1)"><i class="fas fa-plus-circle text-muted"></i></button>
+                </div>
             </div>
-
-            
-
-            <div class="cart-price">
-              $${(item.price * item.quantity).toFixed(2)}
+            <div class="text-end ms-2">
+                <div class="fw-bold mb-2" style="color: #025048;">$${(item.price * item.quantity).toFixed(2)}</div>
+                <button class="btn btn-sm text-danger p-0" onclick="removeFromCart('${item.id}')"><i class="fa-solid fa-trash-can"></i></button>
             </div>
-
-          </div>
         </div>
-      </div>
     `,
       )
       .join("");
@@ -436,7 +405,9 @@ decrease
           aria-expanded="false">
         </lord-icon>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-          <li><a class="dropdown-item" href="#" id="logoutBtn">Logout</a></li>
+          <li><a class="dropdown-item" href="myOrder.html"><i class="fas fa-box me-2"></i>My Orders</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item text-danger" href="#" id="logoutBtn"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
         </ul>
       </div>
     `;
@@ -451,7 +422,20 @@ decrease
       }
     } else {
       userIconContainer.innerHTML = `
-      <a href="login.html" class="nav-link text-white fw-bold" style="font-family: 'workSans';">Login</a>
+      <div class="dropdown">
+        <lord-icon 
+          src="https://cdn.lordicon.com/spzqjmbt.json" 
+          trigger="hover" 
+          colors="primary:#ffffff" 
+          style="height:50px; cursor:pointer;"
+          id="userDropdown"
+          data-bs-toggle="dropdown"
+          aria-expanded="false">
+        </lord-icon>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+          <li><a class="dropdown-item" href="login.html"><i class="fas fa-sign-in-alt me-2"></i>Sign In</a></li>
+        </ul>
+      </div>
     `;
     }
   });
@@ -493,20 +477,15 @@ decrease
   }
 
   function addToWishlist(btn) {
-    const card = btn.closest(".card") || btn.closest(".main-wrapper"); 
+    const card = btn.closest(".card") || btn.closest(".main-wrapper");
     const id = card.getAttribute("data-id");
     const name = card.getAttribute("data-name");
     const price = parseFloat(card.getAttribute("data-price"));
     const img = card.getAttribute("data-img");
 
     let wishlist = getWishlist();
-    const existingIndex = wishlist.findIndex((item) => item.id === id);
-
-    if (existingIndex === -1) {
+    if (!wishlist.find((item) => item.id === id)) {
       wishlist.push({ id, name, price, img });
-      saveWishlist(wishlist);
-    } else {
-      wishlist.splice(existingIndex, 1);
       saveWishlist(wishlist);
     }
   }

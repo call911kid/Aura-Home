@@ -1,11 +1,12 @@
-import{load, setupEvents} from "./StaticScript.js";
-
-
+import { load, setupEvents } from "./StaticScript.js";
 
 await load();
 await setupEvents();
-import { loadProducts, loadCategories } from "../Scripts/AuraHomeServices.js";
 
+
+
+
+import { loadProducts, loadCategories } from "../Scripts/AuraHomeServices.js";
 
 const productsRow = document.getElementById("products-row");
 const priceRange = document.getElementById("price-range");
@@ -87,7 +88,7 @@ async function initCategories() {
   try {
     const categoriesSnapshot = await loadCategories();
     if (categoryListContainer) {
-      categoryListContainer.innerHTML = ""; 
+      categoryListContainer.innerHTML = "";
       categoriesSnapshot.forEach((doc) => {
         const categoryData = doc.data();
         const categoryName = categoryData.Name;
@@ -142,9 +143,12 @@ function renderFilteredProducts() {
     const isFavorite = wishlist.some((item) => item.id === product.id);
     const heartIcon = isFavorite ? "fa-solid" : "fa-regular";
 
+    // التحقق مما إذا كان المنتج خارج المخزون
+    const isOutOfStock = product.Stock_Quantity <= 0;
+
     const cardHTML = `
     <div class="col-lg-4 col-md-6 mb-4">
-        <div class="card custom-card shadow-sm h-100" 
+        <div class="card custom-card shadow-sm h-100 ${isOutOfStock ? "out-of-stock" : ""}" 
              data-id="${product.id}" 
              data-name="${product.Product_Name}" 
              data-price="${product.Price}" 
@@ -152,6 +156,7 @@ function renderFilteredProducts() {
              data-url="${detailsLink}" style="cursor: pointer;">
              
             <div class="img-wrapper position-relative">
+                ${isOutOfStock ? '<div class="out-of-stock-ribbon">Out of Stock</div>' : ""}
                 <button class="wishlist-btn-overlay" onclick="handleWishlistClick(event, this )" 
                         style="position: absolute; top: 10px; right: 10px; background: white; border-radius: 50%; border: none; width: 35px; height: 35px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 10;">
                     <i class="${heartIcon} fa-heart text-danger"></i>
@@ -166,8 +171,9 @@ function renderFilteredProducts() {
                 </p>
                 <p class="card-text text-truncate-custom">${product.Description || ""}</p>
                 <button class="btn btn-outline-brown mt-auto buy-now-btn" 
-                        onclick="event.stopPropagation( ); addToCartFromPage(this)"> 
-                    Add to Cart
+                        ${isOutOfStock ? "disabled" : ""}
+                        onclick="event.stopPropagation( ); ${isOutOfStock ? "" : "addToCartFromPage(this)"}"> 
+                    ${isOutOfStock ? "Out of Stock" : "Add to Cart"}
                 </button>   
             </div>
         </div>
@@ -199,7 +205,6 @@ if (priceRange) {
     renderFilteredProducts();
   });
 }
-
 
 quickPriceBtns.forEach((btn) => {
   btn.addEventListener("click", () => {

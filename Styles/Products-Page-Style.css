@@ -482,3 +482,34 @@ footer {
     min-width: 100%;
 }
 
+.out-of-stock-ribbon {
+        position: absolute;
+        top: 10px;
+        left: -5px;
+        background: #d9534f;
+        color: white;
+        padding: 5px 15px;
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+        z-index: 15;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        border-radius: 0 4px 4px 0;
+    }
+    .out-of-stock-ribbon::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 0;
+        border-top: 5px solid #a94442;
+        border-left: 5px solid transparent;
+    }
+    .card.out-of-stock {
+        opacity: 0.8;
+        filter: grayscale(0.3);
+    }
+    .card.out-of-stock .buy-now-btn {
+        background-color: #ccc !important;
+        border-color: #ccc !important;
+        cursor: not-allowed;
+    }

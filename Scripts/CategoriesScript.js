@@ -1,19 +1,12 @@
-import{load, setupEvents} from "./StaticScript.js"
-
-
+import { load, setupEvents } from "./StaticScript.js";
 
 await load();
 await setupEvents();
 
-var nav=document.getElementById("navbar");
+var nav = document.getElementById("navbar");
 nav.style.position = "sticky";
 nav.style.top = "0";
 nav.style.zIndex = "2000";
-
-
-
-
-
 
 import {
   loadCategories,
@@ -32,6 +25,37 @@ const firebaseIdInput = document.getElementById("category-firebase-id");
 const categoryNameInput = document.getElementById("category-name");
 
 let allCategories = [];
+
+function validateCategoryName(name, currentDocId = null) {
+  const trimmedName = name.trim();
+
+  if (!trimmedName) {
+    return "Category name cannot be empty.";
+  }
+
+ 
+  if (trimmedName.length < 3) {
+    return "Category name must be at least 3 characters long.";
+  }
+
+
+  const isDuplicate = allCategories.some(
+    (cat) =>
+      cat.Name.toLowerCase() === trimmedName.toLowerCase() &&
+      cat.docId !== currentDocId,
+  );
+
+  if (isDuplicate) {
+    return "This category already exists.";
+  }
+
+  const nameRegex = /^[a-zA-Z0-9\s&]+$/;
+  if (!nameRegex.test(trimmedName)) {
+    return "Category name contains invalid characters (use only letters, numbers, spaces, and &).";
+  }
+
+  return null; 
+}
 
 async function fetchAndRenderCategories() {
   categoriesList.innerHTML =
@@ -78,11 +102,18 @@ categoryForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const docId = firebaseIdInput.value;
-  const categoryData = {
-    Name: categoryNameInput.value.trim(),
-  };
+  const nameValue = categoryNameInput.value;
 
-  if (!categoryData.Name) return;
+  const errorMessage = validateCategoryName(nameValue, docId);
+  if (errorMessage) {
+    alert(errorMessage);
+    categoryNameInput.focus();
+    return;
+  }
+
+  const categoryData = {
+    Name: nameValue.trim(),
+  };
 
   categorySubmitBtn.disabled = true;
   categorySubmitBtn.innerText = "Processing...";
