@@ -27,6 +27,7 @@ export async function load() {
     if (typeof window.updateWishlistIconCount === "function")
       window.updateWishlistIconCount();
     if (typeof window.renderWishlist === "function") window.renderWishlist();
+    
   }, 1000);
 }
 
@@ -64,13 +65,22 @@ export async function setupEvents() {
     });
   }
 
-  const dashboardLink=document.getElementById("dashboard-link");
-  const userRole=await getMyRole();
-  console.log(userRole);
-  if(userRole==='admin'){
-    console.log(userRole);
-    dashboardLink.innerHTML=`<li id="dashboard-link" class="nav-item"><a class="nav-link" href="Dashboard.html" style="display:block;">Dashboard</a></li>`
-  }
+    try {
+      const dashboardLink = document.getElementById("dashboard-link");
+      if (dashboardLink) {
+        const userRole = await getMyRole();
+        console.log("User Role:", userRole);
+
+        if (userRole === "admin") {
+          dashboardLink.innerHTML = `<a class="nav-link" href="Dashboard.html" style="display:block;">Dashboard</a>`;
+          dashboardLink.style.display = "block"; 
+        } else {
+          dashboardLink.style.display = "none";
+        }
+      }
+    } catch (error) {
+      console.error("Error checking user role:", error);
+    }
 
 const scrollBtn = document.getElementById("scrollTopBtn");
 //console.log(scrollBtn);
