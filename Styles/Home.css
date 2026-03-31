@@ -456,7 +456,7 @@
     max-height: 280px;
     display: block;
     margin: 1rem;
-    transition: border-radius 0.6s ease, transform 0.4s ease;
+    transition: transform 0.4s ease-in-out;
 }
 .category:nth-child(even) .category-photo {
     border-radius: 1rem 10rem;
@@ -467,7 +467,7 @@
 
 
 .category-photo img:hover {
-    transform: scale(1.03);
+    transform: scale(1.1);  
 }
 .category-text {
     display: flex;
@@ -660,6 +660,24 @@
 }
 
 
+  .ContactUS {
+    background-color: #f8f9fa; 
+    min-height: 100vh;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    padding: 20px 0;
+}
+    .ContactUS2 {
+    background-color: #f8f9fa; 
+    min-height: 100vh;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    padding: 20px 0;
+}
+
+
 .contact-us {
 
     font-family: "Playfair Display", serif;
@@ -689,6 +707,7 @@ h3,
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(194, 36, 36, 0.1);
+     min-height: 500px;
 
 }
 
@@ -703,6 +722,9 @@ h3,
     color: #fff;
     padding: 40px;
     position: relative;
+    min-height: 100%;
+
+
 }
 
 .contact-info h2 {
@@ -790,3 +812,38 @@ h3,
     animation: fadeInUp 1s ease-in-out;
 
 }
+<<<<<<< HEAD
+.contact-container {
+    display: flex;
+    min-height: 500px; 
+}
+
+.contact-info {
+    height: 100%; 
+}
+
+/****************************** message **************************/
+/* --- Professional Success Message Styles --- */
+
+.success-message {
+    background-color: #d1e7dd; 
+    color: #0f5132;           
+    padding: 1rem;
+    border-radius: 0.25rem;
+    margin-top: 1rem;
+    border: 1px solid #badbcc;
+    text-align: center;
+
+    opacity: 0; 
+    transform: translateY(20px); 
+    visibility: hidden; 
+    transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s; 
+}
+
+.success-message.show {
+    opacity: 1; 
+    transform: translateY(0); 
+    visibility: visible; 
+}
+=======
+>>>>>>> 6f3c7ae50d5ade421e7ad1562208453dcbdbbe8f

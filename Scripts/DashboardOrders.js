@@ -1,43 +1,241 @@
+// import { getMyRole } from "./AuraHomeServices.js";
 
+// const userRole = await getMyRole();
+// if (userRole !== "admin") {
+//   window.location.href = "login.html";
+// }
 
+// import { db } from "./firebase.js";
+// import {
+//   collection,
+//   getDocs,
+//   doc,
+//   getDoc,
+//   updateDoc,
+// } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
+// const ordersTable = document.getElementById("ordersTable");
+// const searchInput = document.getElementById("searchInput");
 
+// let allOrders = [];
 
-import { db } from "./firebase.js";
+// async function loadOrders() {
+//   ordersTable.innerHTML = `<tr><td colspan="6" class="text-center py-5"><div class="spinner-border spinner-brand" role="status"></div><p>Loading orders...</p></td></tr>`;
+//   allOrders = [];
+
+//   try {
+//     const snapshot = await getDocs(collection(db, "orders"));
+
+//     for (let docSnap of snapshot.docs) {
+//       let order = docSnap.data();
+//       order.id = docSnap.id;
+
+//       if (order.userId) {
+//         try {
+//           const userDoc = await getDoc(doc(db, "users", order.userId));
+//           if (userDoc.exists() && userDoc.data().role !== "deleted") {
+//             order.userEmail = userDoc.data().email;
+//             allOrders.push(order);
+//           }
+//         } catch (e) {
+//           console.error("Error fetching user email:", e);
+//         }
+//       }
+//     }
+
+//     allOrders.sort((a, b) => {
+//       const dateA = a.createdAt?.toDate ? a.createdAt.toDate() : new Date(0);
+//       const dateB = b.createdAt?.toDate ? b.createdAt.toDate() : new Date(0);
+//       return dateB - dateA;
+//     });
+
+//     renderOrders(allOrders);
+//   } catch (error) {
+//     console.error("Error loading orders:", error);
+//     ordersTable.innerHTML = `<tr><td colspan="6" class="text-center py-5 text-danger">Error loading orders.</td></tr>`;
+//   }
+// }
+
+// function renderOrders(orders) {
+//   if (!ordersTable) return;
+//   ordersTable.innerHTML = "";
+
+//   if (orders.length === 0) {
+//     ordersTable.innerHTML = `
+//       <tr>
+//         <td colspan="6" class="text-center py-5">
+//           <i class="fas fa-box-open fs-2 mb-2"></i>
+//           <p class="text-muted">No orders found.</p>
+//         </td>
+//       </tr>`;
+//     return;
+//   }
+
+//   orders.forEach((order) => {
+//     const dateStr = order.createdAt?.toDate
+//       ? order.createdAt.toDate().toLocaleDateString()
+//       : "N/A";
+
+//     const status = order.status || "pending";
+
+//     ordersTable.innerHTML += `
+//       <tr>
+//         <td>#${order.id.slice(0, 6)}</td>
+//         <td>${dateStr}</td>
+//         <td>${order.userEmail}</td>
+//         <td>
+//           <span class="status ${status}">
+//             ${status}
+//           </span>
+//         </td>
+//         <td>$${order.total || 0}</td>
+//         <td class="actions">
+//           <div class="dropdown">
+//             <button class="btn btn-sm btn-light border dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+//               <i class="fa fa-pen me-1"></i> Status
+//             </button>
+//             <ul class="dropdown-menu">
+//               <li><a class="dropdown-item status-link" href="#" data-id="${order.id}" data-status="pending">Pending</a></li>
+//               <li><a class="dropdown-item status-link" href="#" data-id="${order.id}" data-status="completed">Completed</a></li>
+//               <li><a class="dropdown-item status-link" href="#" data-id="${order.id}" data-status="canceled">Canceled</a></li>
+//             </ul>
+//           </div>
+//         </td>
+//       </tr>
+//     `;
+//   });
+
+//   attachStatusEvents();
+// }
+
+// function attachStatusEvents() {
+//   document.querySelectorAll(".status-link").forEach((link) => {
+//     link.onclick = async (e) => {
+//       e.preventDefault();
+//       const orderId = link.dataset.id;
+//       const newStatus = link.dataset.status;
+
+//       try {
+//         const originalText = link.innerHTML;
+//         link.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Updating...`;
+//         link.classList.add("disabled");
+
+//         await updateOrderStatus(orderId, newStatus);
+
+//         loadOrders();
+//       } catch (err) {
+//         alert("Error updating order status");
+//         console.error(err);
+//         link.innerHTML = originalText;
+//         link.classList.remove("disabled");
+//       }
+//     };
+//   });
+// }
+
+// searchInput.addEventListener("input", () => {
+//   const value = searchInput.value.toLowerCase();
+
+//   const filtered = allOrders.filter(
+//     (order) =>
+//       (order.userEmail && order.userEmail.toLowerCase().includes(value)) ||
+//       (order.status && order.status.toLowerCase().includes(value)) ||
+//       (order.id && order.id.toLowerCase().includes(value)),
+//   );
+
+//   renderOrders(filtered);
+// });
+
+// window.addEventListener("DOMContentLoaded", loadOrders);
+
+// import{load, setupEvents} from "./StaticScript.js"
+// import { updateOrderStatus } from "./AuraHomeServices.js";
+
+// await load();
+// await setupEvents();
+
+// var nav=document.getElementById("navbar");
+// nav.style.position = "sticky";
+// nav.style.top = "0";
+// nav.style.zIndex = "2000";
+
+// dashboardorders.js
+
+import { db, auth } from "./firebase.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 import {
   collection,
   getDocs,
   doc,
   getDoc,
-  updateDoc,
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { updateOrderStatus } from "./aurahomeservices.js";
+import { load, setupEvents } from "./staticscript.js";
 
 const ordersTable = document.getElementById("ordersTable");
 const searchInput = document.getElementById("searchInput");
 
 let allOrders = [];
 
+/* ================= auth + role check ================= */
+function checkAdminAndInit() {
+  return new Promise((resolve) => {
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      try {
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        const role = userDoc.exists() ? userDoc.data().role : null;
+
+        if (role !== "admin") {
+          window.location.href = "login.html";
+          return;
+        }
+
+        resolve();
+      } catch (err) {
+        console.error("role check error:", err);
+        window.location.href = "login.html";
+      }
+    });
+  });
+}
+
+/* ================= load orders ================= */
 async function loadOrders() {
-  ordersTable.innerHTML = `<tr><td colspan="6" class="text-center py-5"><div class="spinner-border spinner-brand" role="status"></div><p>Loading orders...</p></td></tr>`;
+  if (!ordersTable) return;
+
+  ordersTable.innerHTML = `
+    <tr>
+      <td colspan="6" class="text-center py-5">
+        <div class="spinner-border" role="status"></div>
+        <p>loading orders...</p>
+      </td>
+    </tr>
+  `;
+
   allOrders = [];
 
   try {
     const snapshot = await getDocs(collection(db, "orders"));
 
     for (let docSnap of snapshot.docs) {
-      let order = docSnap.data();
+      const order = docSnap.data();
       order.id = docSnap.id;
 
-      if (order.userId) {
-        try {
-          const userDoc = await getDoc(doc(db, "users", order.userId));
-          if (userDoc.exists() && userDoc.data().role !== "deleted") {
-            order.userEmail = userDoc.data().email;
-            allOrders.push(order); 
-          }
-        } catch (e) {
-          console.error("Error fetching user email:", e);
+      if (!order.userId) continue;
+
+      try {
+        const userDoc = await getDoc(doc(db, "users", order.userId));
+        if (userDoc.exists() && userDoc.data().role !== "deleted") {
+          order.userEmail = userDoc.data().email;
+          allOrders.push(order);
         }
+      } catch (e) {
+        console.error("error loading user:", e);
       }
     }
 
@@ -49,30 +247,38 @@ async function loadOrders() {
 
     renderOrders(allOrders);
   } catch (error) {
-    console.error("Error loading orders:", error);
-    ordersTable.innerHTML = `<tr><td colspan="6" class="text-center py-5 text-danger">Error loading orders.</td></tr>`;
+    console.error("error loading orders:", error);
+    ordersTable.innerHTML = `
+      <tr>
+        <td colspan="6" class="text-center py-5 text-danger">
+          error loading orders
+        </td>
+      </tr>
+    `;
   }
 }
 
+/* ================= render ================= */
 function renderOrders(orders) {
   if (!ordersTable) return;
+
   ordersTable.innerHTML = "";
 
   if (orders.length === 0) {
     ordersTable.innerHTML = `
       <tr>
         <td colspan="6" class="text-center py-5">
-          <i class="fas fa-box-open fs-2 mb-2"></i>
-          <p class="text-muted">No orders found.</p>
+          <p class="text-muted">no orders found</p>
         </td>
-      </tr>`;
+      </tr>
+    `;
     return;
   }
 
   orders.forEach((order) => {
     const dateStr = order.createdAt?.toDate
       ? order.createdAt.toDate().toLocaleDateString()
-      : "N/A";
+      : "n/a";
 
     const status = order.status || "pending";
 
@@ -82,20 +288,18 @@ function renderOrders(orders) {
         <td>${dateStr}</td>
         <td>${order.userEmail}</td>
         <td>
-          <span class="status ${status}">
-            ${status}
-          </span>
+          <span class="status ${status}">${status}</span>
         </td>
         <td>$${order.total || 0}</td>
         <td class="actions">
           <div class="dropdown">
-            <button class="btn btn-sm btn-light border dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="fa fa-pen me-1"></i> Status
+            <button class="btn btn-sm btn-light border dropdown-toggle" type="button" data-bs-toggle="dropdown">
+              status
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item status-link" href="#" data-id="${order.id}" data-status="pending">Pending</a></li>
-              <li><a class="dropdown-item status-link" href="#" data-id="${order.id}" data-status="completed">Completed</a></li>
-              <li><a class="dropdown-item status-link" href="#" data-id="${order.id}" data-status="canceled">Canceled</a></li>
+              <li><a class="dropdown-item status-link" href="#" data-id="${order.id}" data-status="pending">pending</a></li>
+              <li><a class="dropdown-item status-link" href="#" data-id="${order.id}" data-status="completed">completed</a></li>
+              <li><a class="dropdown-item status-link" href="#" data-id="${order.id}" data-status="canceled">canceled</a></li>
             </ul>
           </div>
         </td>
@@ -106,57 +310,56 @@ function renderOrders(orders) {
   attachStatusEvents();
 }
 
+/* ================= update status ================= */
 function attachStatusEvents() {
   document.querySelectorAll(".status-link").forEach((link) => {
     link.onclick = async (e) => {
       e.preventDefault();
+
       const orderId = link.dataset.id;
       const newStatus = link.dataset.status;
 
       try {
-        const originalText = link.innerHTML;
-        link.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Updating...`;
         link.classList.add("disabled");
-
         await updateOrderStatus(orderId, newStatus);
-
-        loadOrders();
+        await loadOrders();
       } catch (err) {
-        alert("Error updating order status");
+        alert("error updating order");
         console.error(err);
-        link.innerHTML = originalText;
+      } finally {
         link.classList.remove("disabled");
       }
     };
   });
 }
 
-searchInput.addEventListener("input", () => {
-  const value = searchInput.value.toLowerCase();
+/* ================= search ================= */
+if (searchInput) {
+  searchInput.addEventListener("input", () => {
+    const value = searchInput.value.toLowerCase();
 
-  const filtered = allOrders.filter(
-    (order) =>
-      (order.userEmail && order.userEmail.toLowerCase().includes(value)) ||
-      (order.status && order.status.toLowerCase().includes(value)) ||
-      (order.id && order.id.toLowerCase().includes(value)),
-  );
+    const filtered = allOrders.filter(
+      (order) =>
+        order.userEmail?.toLowerCase().includes(value) ||
+        order.status?.toLowerCase().includes(value) ||
+        order.id?.toLowerCase().includes(value),
+    );
 
-  renderOrders(filtered);
-});
+    renderOrders(filtered);
+  });
+}
 
-window.addEventListener("DOMContentLoaded", loadOrders);
+/* ================= init ================= */
+(async function init() {
+  await checkAdminAndInit();
+  await load();
+  await setupEvents();
+  await loadOrders();
 
-
-
-import{load, setupEvents} from "./StaticScript.js"
-import { updateOrderStatus } from "./AuraHomeServices.js";
-
-
-
-await load();
-await setupEvents();
-
-var nav=document.getElementById("navbar");
-nav.style.position = "sticky";
-nav.style.top = "0";
-nav.style.zIndex = "2000";
+  const nav = document.getElementById("navbar");
+  if (nav) {
+    nav.style.position = "sticky";
+    nav.style.top = "0";
+    nav.style.zIndex = "2000";
+  }
+})();

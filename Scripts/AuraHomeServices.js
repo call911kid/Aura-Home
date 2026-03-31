@@ -3,7 +3,7 @@ import { db, auth } from "../Scripts/firebase.js";
 import { collection, doc, addDoc, getDocs, getDoc, deleteDoc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 import {serverTimestamp, query, where, increment } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
 
 
@@ -423,6 +423,34 @@ export async function loadUsers() {
     //console.log(auth.currentUser);
     const querySnapshot = await getDocs(collection(db, "users"));
     return querySnapshot;
+}
+
+
+
+export function getMyRole() {
+    return new Promise((resolve) => {
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                resolve(null);
+                return;
+            }
+
+            try {
+                const userDoc = await getDoc(doc(db, "users", user.uid));
+
+                if (!userDoc.exists()) {
+                    resolve(null);
+                    return;
+                }
+
+                resolve(userDoc.data().role ?? null);
+
+            } catch (error) {
+                console.error("Failed to get role:", error);
+                resolve(null);
+            }
+        });
+    });
 }
 
 
